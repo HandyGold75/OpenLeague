@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://dn4suahctac6j"]
+
+[ext_resource type="Script" path="res://Models/Cars/Car.gd" id="1_mrrr0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytpup"]
+albedo_color = Color(0.784314, 0, 0, 1)
+metallic = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_jtf5g"]
+material = SubResource("StandardMaterial3D_ytpup")
+size = Vector3(1, 0.25, 1.25)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qlrg3"]
+points = PackedVector3Array(0.5, 0.125, 0.625, 0.5, -0.125, 0.625, 0.5, 0.125, -0.625, -0.5, 0.125, 0.625, -0.5, -0.125, 0.625, 0.5, -0.125, -0.625, -0.5, 0.125, -0.625, -0.5, -0.125, -0.625)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rg5vb"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_wj6rf"]
+material = SubResource("StandardMaterial3D_rg5vb")
+size = Vector3(1, 0.5, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m4se3"]
+points = PackedVector3Array(0.5, 0.25, 1, 0.5, -0.25, 1, 0.5, 0.25, -1, -0.5, 0.25, 1, -0.5, -0.25, 1, 0.5, -0.25, -1, -0.5, 0.25, -1, -0.5, -0.25, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8qeh"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_15ldd"]
+material = SubResource("StandardMaterial3D_n8qeh")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.1
+
+[node name="Car" type="VehicleBody3D"]
+script = ExtResource("1_mrrr0")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -0.375)
+mesh = SubResource("BoxMesh_jtf5g")
+
+[node name="Roof_Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -0.375)
+shape = SubResource("ConvexPolygonShape3D_qlrg3")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wj6rf")
+skeleton = NodePath("")
+
+[node name="Body_Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_m4se3")
+
+[node name="Wheel_FL" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51906, -0.24225, 0.53201)
+use_as_steering = true
+wheel_roll_influence = 0.05
+wheel_radius = 0.25
+suspension_stiffness = 200.0
+damping_compression = 10.0
+damping_relaxation = 11.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wheel_FL"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_15ldd")
+
+[node name="Wheel_FR" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48094, -0.24225, 0.53201)
+use_as_steering = true
+wheel_roll_influence = 0.05
+wheel_radius = 0.25
+suspension_stiffness = 200.0
+damping_compression = 10.0
+damping_relaxation = 11.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wheel_FR"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_15ldd")
+
+[node name="Wheel_BL" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51906, -0.24225, -0.46799)
+use_as_traction = true
+wheel_roll_influence = 0.05
+wheel_radius = 0.25
+suspension_stiffness = 200.0
+damping_compression = 10.0
+damping_relaxation = 11.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wheel_BL"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_15ldd")
+
+[node name="Wheel_BR" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48094, -0.24225, -0.46799)
+use_as_traction = true
+wheel_roll_influence = 0.05
+wheel_radius = 0.25
+suspension_stiffness = 200.0
+damping_compression = 10.0
+damping_relaxation = 11.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wheel_BR"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_15ldd")
+
+[node name="CameraYaw" type="Node3D" parent="."]
+
+[node name="CameraPitch" type="Node3D" parent="CameraYaw"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraYaw/CameraPitch"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)

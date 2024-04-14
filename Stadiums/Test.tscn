@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvrq2144vqiy0"]
+
+[ext_resource type="Texture2D" uid="uid://oetd1xycxy73" path="res://icon.svg" id="1_f5gpw"]
+[ext_resource type="PackedScene" uid="uid://bc2day7wma7cp" path="res://Models/Cars/CarC.tscn" id="2_dc0om"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8t7j"]
+albedo_texture = ExtResource("1_f5gpw")
+uv1_scale = Vector3(0.01, 0.01, 0.01)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3jxe"]
+material = SubResource("StandardMaterial3D_y8t7j")
+size = Vector3(1000, 1, 500)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fdabn"]
+data = PackedVector3Array(-500, 0.5, 250, 500, 0.5, 250, -500, -0.5, 250, 500, 0.5, 250, 500, -0.5, 250, -500, -0.5, 250, 500, 0.5, -250, -500, 0.5, -250, 500, -0.5, -250, -500, 0.5, -250, -500, -0.5, -250, 500, -0.5, -250, 500, 0.5, 250, 500, 0.5, -250, 500, -0.5, 250, 500, 0.5, -250, 500, -0.5, -250, 500, -0.5, 250, -500, 0.5, -250, -500, 0.5, 250, -500, -0.5, -250, -500, 0.5, 250, -500, -0.5, 250, -500, -0.5, -250, 500, 0.5, 250, -500, 0.5, 250, 500, 0.5, -250, -500, 0.5, 250, -500, 0.5, -250, 500, 0.5, -250, -500, -0.5, 250, 500, -0.5, 250, -500, -0.5, -250, 500, -0.5, 250, 500, -0.5, -250, -500, -0.5, -250)
+
+[node name="Test" type="Node3D"]
+
+[node name="Base" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 50, 0)
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Base"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 100, 0, 0)
+shadow_enabled = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="Base"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -100, 0, 0)
+shadow_enabled = true
+
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
+shadow_enabled = true
+
+[node name="DirectionalLight3D5" type="DirectionalLight3D" parent="Base"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -100)
+shadow_enabled = true
+
+[node name="Stadium" type="Node" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Stadium"]
+mesh = SubResource("BoxMesh_a3jxe")
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fdabn")
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="CarC" parent="Objects" instance=ExtResource("2_dc0om")]
+transform = Transform3D(-0.9977, 0, -0.0677889, 0, 1, 0, 0.0677889, 0, -0.9977, 0, 2.06825, 0)
