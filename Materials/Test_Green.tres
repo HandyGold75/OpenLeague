@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bdrklrr7g12ga"]
+
+[ext_resource type="Texture2D" uid="uid://bw3ix7fx0x5dl" path="res://Textures/TILE.jpg" id="1_3lxkx"]
+
+[resource]
+transparency = 1
+albedo_color = Color(0, 0.392157, 0, 1)
+albedo_texture = ExtResource("1_3lxkx")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
