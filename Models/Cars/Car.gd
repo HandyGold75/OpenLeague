@@ -1,5 +1,7 @@
 extends CharacterBody3D
-	
+
+const DEBUG = false
+
 const SPEED_FORWARD = 30
 const SPEED_REVERSED = 20
 const SPEED_BOOST = 40
@@ -103,13 +105,22 @@ func _physics_process(delta):
 	velocity.y = maxf(minf(velocity.y, SPEED_MAX), -SPEED_MAX)
 	velocity.z = maxf(minf(velocity.z, SPEED_MAX), -SPEED_MAX)
 
-	#Debug
-	print("-----")
-	print(velocity)
-	print(wheels_touching_ground)
-	print(transform.basis)
-	print(player.HasDubbleJump)
-	print(player.BoostCount)
+	# Collisions
+	if is_on_floor():
+		for i in get_slide_collision_count():
+			var col_obj = get_slide_collision(i).get_collider()
+			if col_obj.get_collision_layer() == 2:
+				var push_direction = (col_obj.global_transform.origin - global_transform.origin).normalized()
+				col_obj.apply_impulse(push_direction * 10, Vector3.ZERO )
+
+	# Debug
+	if DEBUG:
+		print("-----")
+		print(velocity)
+		print(wheels_touching_ground)
+		print(transform.basis)
+		print(player.HasDubbleJump)
+		print(player.BoostCount)
 
 	# Cleanup
 	transform = transform.orthonormalized()
