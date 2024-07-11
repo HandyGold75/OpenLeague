@@ -1,10 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dvrq2144vqiy0"]
+[gd_scene load_steps=24 format=3 uid="uid://dvrq2144vqiy0"]
 
-[ext_resource type="Material" uid="uid://bdrklrr7g12ga" path="res://Materials/Test_Green.tres" id="1_0c0qv"]
-[ext_resource type="PackedScene" uid="uid://bc2day7wma7cp" path="res://Models/Cars/Car.tscn" id="2_3ht7o"]
-[ext_resource type="Material" uid="uid://bqrik10yfgir5" path="res://Materials/Test_Gray_Transparent.tres" id="2_xmqwq"]
-[ext_resource type="Material" uid="uid://p7s64tutlf7y" path="res://Materials/Test_Gray.tres" id="3_ukxs5"]
-[ext_resource type="PackedScene" uid="uid://wkqovs75ler2" path="res://Models/Ball.tscn" id="5_gpjxa"]
+[ext_resource type="Material" uid="uid://bdrklrr7g12ga" path="res://Assets/Materials/Test_Green.tres" id="1_0c0qv"]
+[ext_resource type="Material" uid="uid://bqrik10yfgir5" path="res://Assets/Materials/Test_Gray_Transparent.tres" id="2_xmqwq"]
+[ext_resource type="Material" uid="uid://p7s64tutlf7y" path="res://Assets/Materials/Test_Gray.tres" id="3_ukxs5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a3jxe"]
 material = ExtResource("1_0c0qv")
@@ -194,11 +192,3 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort2/WallShort3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8uk7a")
-
-[node name="Objects" type="Node" parent="."]
-
-[node name="Car" parent="Objects" instance=ExtResource("2_3ht7o")]
-transform = Transform3D(-0.9977, 0, -0.0677889, 0, 1, 0, 0.0677889, 0, -0.9977, 0, 2.06825, 0)
-
-[node name="Ball" parent="Objects" instance=ExtResource("5_gpjxa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -5)

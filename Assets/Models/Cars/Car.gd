@@ -10,10 +10,10 @@ const SPEED_LOSS = 0.5
 
 const JUMP_VELOCITY = 10
 
-const STEER_SENSITIVITY = 20
-const TILT_SENSITIVITY = 40
+const STEER_SENSITIVITY = 60
+const TILT_SENSITIVITY = 60
 
-const camera_rotation_sensitivity = 1.0
+const camera_rotation_sensitivity = 0.5
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://bc2day7wma7cp"]
 
-[ext_resource type="Script" path="res://Models/Cars/Car.gd" id="1_ja5de"]
+[ext_resource type="Script" path="res://Assets/Models/Cars/Car.gd" id="1_ja5de"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0pj4m"]
 albedo_color = Color(0.784314, 0, 0, 1)
