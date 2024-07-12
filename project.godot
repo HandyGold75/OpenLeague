@@ -18,6 +18,7 @@ config/icon="res://Assets/Images/Logo.png"
 [autoload]
 
 Car="*res://Globals/car.gd"
+ConfigHandler="*res://Globals/ConfigHandler.gd"
 
 [display]
 
@@ -34,9 +35,7 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
-"res://Source/": "gray",
-"res://Source/Blender/": "gray",
-"res://addons/": "gray"
+"res://Source/Blender/": "gray"
 }
 
 [importer_defaults]
