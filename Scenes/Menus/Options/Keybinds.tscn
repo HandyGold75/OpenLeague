@@ -1,0 +1,188 @@
+[gd_scene load_steps=2 format=3 uid="uid://fiusubqi375"]
+
+[ext_resource type="Script" path="res://Scenes/Menus/Options/Keybinds.gd" id="1_hw655"]
+
+[node name="Keybinds" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hw655")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Throttle"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Steer Left"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Steer Right"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Reverse"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Jump"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Boost"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Tilt Up"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Tilt Left"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Tilt Right"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Tilt Down"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Slide"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "X"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

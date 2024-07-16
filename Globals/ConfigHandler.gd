@@ -6,16 +6,16 @@ const CONFIG_FILE_PATH = "user://Config.ini"
 const DEFAULT_VIDEO_DISPLAY = 0
 const DEFAULT_AUDIO_MASTER_VOLUME = 50
 const DEFAULT_KEYBINDING_throttle= "W"
+const DEFAULT_KEYBINDING_reverse= "S"
 const DEFAULT_KEYBINDING_steer_left= "A"
 const DEFAULT_KEYBINDING_steer_right= "D"
-const DEFAULT_KEYBINDING_reverse= "S"
-const DEFAULT_KEYBINDING_jump= "Space"
-const DEFAULT_KEYBINDING_slide= "X"
-const DEFAULT_KEYBINDING_boost= "Shift"
 const DEFAULT_KEYBINDING_tilt_up= "Up"
 const DEFAULT_KEYBINDING_tilt_down= "Down"
 const DEFAULT_KEYBINDING_tilt_left= "Left"
 const DEFAULT_KEYBINDING_tilt_right= "Right"
+const DEFAULT_KEYBINDING_jump= "Space"
+const DEFAULT_KEYBINDING_slide= "X"
+const DEFAULT_KEYBINDING_boost= "Shift"
 const DEFAULT_OFFLINE_START_BOOST = 30
 
 func _ready():
@@ -25,18 +25,21 @@ func _ready():
 		set_keybinding_defaults()
 		set_offline_defaults()
 		Config.save(CONFIG_FILE_PATH)
-
 	else:
 		Config.load(CONFIG_FILE_PATH)
 
 	if !validate_video_config():
 		set_video_defaults()
+		Config.save(CONFIG_FILE_PATH)
 	if !validate_keybinding_config():
 		set_keybinding_defaults()
+		Config.save(CONFIG_FILE_PATH)
 	if !validate_audio_config():
 		set_audio_defaults()
+		Config.save(CONFIG_FILE_PATH)
 	if !validate_offline_config():
 		set_offline_defaults()
+		Config.save(CONFIG_FILE_PATH)
 
 	activate_video_config()
 	activate_keybinding_config()
@@ -95,32 +98,26 @@ func load_audio_config():
 # Keybinding config handler
 func set_keybinding_defaults():
 	Config.set_value("keybinding", "throttle",  DEFAULT_KEYBINDING_throttle)
+	Config.set_value("keybinding", "reverse",  DEFAULT_KEYBINDING_reverse)
 	Config.set_value("keybinding", "steer_left",  DEFAULT_KEYBINDING_steer_left)
 	Config.set_value("keybinding", "steer_right",  DEFAULT_KEYBINDING_steer_right)
-	Config.set_value("keybinding", "reverse",  DEFAULT_KEYBINDING_reverse)
-	Config.set_value("keybinding", "jump",  DEFAULT_KEYBINDING_jump)
-	Config.set_value("keybinding", "slide",  DEFAULT_KEYBINDING_slide)
-	Config.set_value("keybinding", "boost",  DEFAULT_KEYBINDING_boost)
 	Config.set_value("keybinding", "tilt_up",  DEFAULT_KEYBINDING_tilt_up)
 	Config.set_value("keybinding", "tilt_down",  DEFAULT_KEYBINDING_tilt_down)
 	Config.set_value("keybinding", "tilt_left",  DEFAULT_KEYBINDING_tilt_left)
 	Config.set_value("keybinding", "tilt_right",  DEFAULT_KEYBINDING_tilt_right)
+	Config.set_value("keybinding", "jump",  DEFAULT_KEYBINDING_jump)
+	Config.set_value("keybinding", "slide",  DEFAULT_KEYBINDING_slide)
+	Config.set_value("keybinding", "boost",  DEFAULT_KEYBINDING_boost)
 	Config.save(CONFIG_FILE_PATH)
 
 func validate_keybinding_config():
 	if typeof(Config.get_value("keybinding", "throttle")) != TYPE_STRING:
 		return false
+	elif typeof(Config.get_value("keybinding", "reverse")) != TYPE_STRING:
+		return false
 	elif typeof(Config.get_value("keybinding", "steer_left")) != TYPE_STRING:
 		return false
 	elif typeof(Config.get_value("keybinding", "steer_right")) != TYPE_STRING:
-		return false
-	elif typeof(Config.get_value("keybinding", "reverse")) != TYPE_STRING:
-		return false
-	elif typeof(Config.get_value("keybinding", "jump")) != TYPE_STRING:
-		return false
-	elif typeof(Config.get_value("keybinding", "slide")) != TYPE_STRING:
-		return false
-	elif typeof(Config.get_value("keybinding", "boost")) != TYPE_STRING:
 		return false
 	elif typeof(Config.get_value("keybinding", "tilt_up")) != TYPE_STRING:
 		return false
@@ -129,6 +126,12 @@ func validate_keybinding_config():
 	elif typeof(Config.get_value("keybinding", "tilt_left")) != TYPE_STRING:
 		return false
 	elif typeof(Config.get_value("keybinding", "tilt_right")) != TYPE_STRING:
+		return false
+	elif typeof(Config.get_value("keybinding", "jump")) != TYPE_STRING:
+		return false
+	elif typeof(Config.get_value("keybinding", "slide")) != TYPE_STRING:
+		return false
+	elif typeof(Config.get_value("keybinding", "boost")) != TYPE_STRING:
 		return false
 	return true
 

@@ -18,5 +18,11 @@ func _on_volume_drag_ended(value_changed):
 	if value_changed:
 		ConfigHandler.save_audio_config("master_volume", int(master_volume_slider.value))
 
+func _on_keybinds_pressed():
+	get_tree().change_scene_to_file("res://Scenes/Menus/Options/Keybinds.tscn")
+
+func _on_offline_pressed():
+	get_tree().change_scene_to_file("res://Scenes/Menus/Options/Offline.tscn")
+
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Menus/Main.tscn")
