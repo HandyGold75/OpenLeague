@@ -16,14 +16,16 @@ const DEFAULT_KEYBINDING_tilt_right= "Right"
 const DEFAULT_KEYBINDING_jump= "Space"
 const DEFAULT_KEYBINDING_slide= "X"
 const DEFAULT_KEYBINDING_boost= "Shift"
-const DEFAULT_OFFLINE_START_BOOST = 30
+const DEFAULT_KEYBINDING_ball_cam= "E"
+const DEFAULT_TWEAKS_START_BOOST = 30
+const DEFAULT_TWEAKS_UNLIMITED_BOOST = false
 
 func _ready():
 	if !FileAccess.file_exists(CONFIG_FILE_PATH):
 		set_video_defaults()
 		set_audio_defaults()
 		set_keybinding_defaults()
-		set_offline_defaults()
+		set_tweaks_defaults()
 		Config.save(CONFIG_FILE_PATH)
 	else:
 		Config.load(CONFIG_FILE_PATH)
@@ -37,13 +39,12 @@ func _ready():
 	if !validate_audio_config():
 		set_audio_defaults()
 		Config.save(CONFIG_FILE_PATH)
-	if !validate_offline_config():
-		set_offline_defaults()
+	if !validate_tweaks_config():
+		set_tweaks_defaults()
 		Config.save(CONFIG_FILE_PATH)
 
 	activate_video_config()
 	activate_keybinding_config()
-
 
 # Video config handler
 func set_video_defaults():
@@ -52,10 +53,13 @@ func set_video_defaults():
 
 func validate_video_config():
 	if typeof(Config.get_value("video", "display")) != TYPE_INT:
+		print("Found invalid config! \"[video] display != TYPE_INT\"")
 		return false
 	return true
 
 func save_video_config(key: String, value):
+	if Config.get_value("video", key) == null:
+		return
 	Config.set_value("video", key, value)
 	Config.save(CONFIG_FILE_PATH)
 
@@ -73,7 +77,6 @@ func activate_video_config():
 	elif Config.get_value("video", "display") == 2:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
-
 # Audio config handler
 func set_audio_defaults():
 	Config.set_value("audio", "master_volume", DEFAULT_AUDIO_MASTER_VOLUME)
@@ -81,10 +84,13 @@ func set_audio_defaults():
 
 func validate_audio_config():
 	if typeof(Config.get_value("audio", "master_volume")) != TYPE_INT:
+		print("Found invalid config! \"[audio] master_volume != TYPE_INT\"")
 		return false
 	return true
 
 func save_audio_config(key: String, value):
+	if Config.get_value("audio", key) == null:
+		return
 	Config.set_value("audio", key, value)
 	Config.save(CONFIG_FILE_PATH)
 
@@ -93,7 +99,6 @@ func load_audio_config():
 	for key in Config.get_section_keys("audio"):
 		config[key] = Config.get_value("audio", key)
 	return config
-
 
 # Keybinding config handler
 func set_keybinding_defaults():
@@ -108,40 +113,61 @@ func set_keybinding_defaults():
 	Config.set_value("keybinding", "jump",  DEFAULT_KEYBINDING_jump)
 	Config.set_value("keybinding", "slide",  DEFAULT_KEYBINDING_slide)
 	Config.set_value("keybinding", "boost",  DEFAULT_KEYBINDING_boost)
+	Config.set_value("keybinding", "ball_cam",  DEFAULT_KEYBINDING_ball_cam)
 	Config.save(CONFIG_FILE_PATH)
 
 func validate_keybinding_config():
 	if typeof(Config.get_value("keybinding", "throttle")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] xxx != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "reverse")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] reverse != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "steer_left")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] steer_left != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "steer_right")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] steer_right != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "tilt_up")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] tilt_up != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "tilt_down")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] tilt_down != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "tilt_left")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] tilt_left != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "tilt_right")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] tilt_right != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "jump")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] jump != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "slide")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] slide != TYPE_STRING\"")
 		return false
 	elif typeof(Config.get_value("keybinding", "boost")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] boost != TYPE_STRING\"")
+		return false
+	elif typeof(Config.get_value("keybinding", "ball_cam")) != TYPE_STRING:
+		print("Found invalid config! \"[keybinding] ball_cam != TYPE_STRING\"")
 		return false
 	return true
 
 func save_keybinding_config(key: String, event: InputEvent):
 	var value
-	if event is InputEvent:
-		value = OS.get_keycode_string(event.physical_keycode)
-	elif event is InputEventMouse:
+	if event is InputEventKey:
+		value = OS.get_keycode_string(event.keycode)
+	elif event is InputEventMouseButton:
 		value = "mouse_" + str(event.button_index)
+	elif event is InputEventJoypadButton:
+		value = "joypad_" + str(event.button_index)
+	else:
+		return
 
+	if Config.get_value("keybinding", key) == null:
+		return
 	Config.set_value("keybinding", key, value)
 	Config.save(CONFIG_FILE_PATH)
 
@@ -150,8 +176,10 @@ func load_keybinding_config():
 	for key in Config.get_section_keys("keybinding"):
 		var event
 		var value = Config.get_value("keybinding", key)
-
-		if value.begins_with("mouse_"):
+		if value.begins_with("joypad_"):
+			event = InputEventJoypadButton.new()
+			event.button_index = int(value.replace("joypad_", ""))
+		elif value.begins_with("mouse_"):
 			event = InputEventMouseButton.new()
 			event.button_index = int(value.replace("mouse_", ""))
 		else:
@@ -168,23 +196,29 @@ func activate_keybinding_config():
 		InputMap.action_erase_events(key)
 		InputMap.action_add_event(key, config[key])
 
-
-# Offline config handler
-func set_offline_defaults():
-	Config.set_value("offline", "start_boost", DEFAULT_OFFLINE_START_BOOST)
+# Tweaks config handler
+func set_tweaks_defaults():
+	Config.set_value("tweaks", "start_boost", DEFAULT_TWEAKS_START_BOOST)
+	Config.set_value("tweaks", "unlimited_boost", DEFAULT_TWEAKS_UNLIMITED_BOOST)
 	Config.save(CONFIG_FILE_PATH)
 
-func validate_offline_config():
-	if typeof(Config.get_value("offline", "start_boost")) != TYPE_INT:
+func validate_tweaks_config():
+	if typeof(Config.get_value("tweaks", "start_boost")) != TYPE_INT:
+		print("Found invalid config! \"[tweaks] start_boost != TYPE_INT\"")
+		return false
+	if typeof(Config.get_value("tweaks", "unlimited_boost")) != TYPE_BOOL:
+		print("Found invalid config! \"[tweaks] unlimited_boost != TYPE_BOOL\"")
 		return false
 	return true
 
-func save_offline_config(key: String, value):
-	Config.set_value("offline", key, value)
+func save_tweaks_config(key: String, value):
+	if Config.get_value("tweaks", key) == null:
+		return
+	Config.set_value("tweaks", key, value)
 	Config.save(CONFIG_FILE_PATH)
 
-func load_offline_config():
+func load_tweaks_config():
 	var config = {}
-	for key in Config.get_section_keys("offline"):
-		config[key] = Config.get_value("offline", key)
+	for key in Config.get_section_keys("tweaks"):
+		config[key] = Config.get_value("tweaks", key)
 	return config

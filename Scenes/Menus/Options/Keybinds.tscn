@@ -40,10 +40,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Throttle"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Throttle" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -52,10 +52,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Steer Left"
+text = "Reverse"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Reverse" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -64,10 +64,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Steer Right"
+text = "Steer Left"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Steer Left" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -76,10 +76,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Reverse"
+text = "Steer Right"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Steer Right" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -88,10 +88,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Jump"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Jump" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -100,10 +100,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Boost"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+[node name="Boost" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -115,10 +115,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Tilt Up"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="Tilt Up" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
@@ -127,10 +127,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Tilt Left"
+text = "Tilt Down"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="Tilt Down" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
@@ -139,10 +139,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Tilt Right"
+text = "Tilt Left"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+[node name="Tilt Left" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
@@ -151,10 +151,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Tilt Down"
+text = "Tilt Right"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+[node name="Tilt Right" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
@@ -163,10 +163,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Slide"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
+[node name="Slide" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
@@ -175,14 +175,26 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "X"
+text = "Ball Cam"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
+[node name="Ball Cam" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle" to="." method="_on_throttle_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Reverse" to="." method="_on_reverse_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/Steer Left" to="." method="_on_steer_left_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4/Steer Right" to="." method="_on_steer_right_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Jump" to="." method="_on_jump_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost" to="." method="_on_boost_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Tilt Up" to="." method="_on_tilt_up_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/Tilt Down" to="." method="_on_tilt_down_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Tilt Left" to="." method="_on_tilt_left_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/Tilt Right" to="." method="_on_tilt_right_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide" to="." method="_on_slide_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6/Ball Cam" to="." method="_on_ball_cam_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

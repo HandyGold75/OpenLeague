@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://o8nn0umgean2"]
 
-[ext_resource type="Script" path="res://Scenes/Menus/Options/Offline.gd" id="1_ka6l0"]
+[ext_resource type="Script" path="res://Scenes/Menus/Options/Tweaks.gd" id="1_0p8vg"]
 
 [node name="Offline" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ka6l0")
+script = ExtResource("1_0p8vg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -47,10 +47,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Start Boost"
 
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Start Boost" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 step = 10.0
 
@@ -60,14 +59,15 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 text = "Unlimited Boost"
 
-[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Unlimited Boost" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
 [node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Start Boost" to="." method="_on_start_boost_value_changed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Unlimited Boost" to="." method="_on_unlimited_boost_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

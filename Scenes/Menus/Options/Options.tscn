@@ -46,7 +46,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_horizontal = 3
 text = "Volume"
 
 [node name="Volume" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -58,16 +58,16 @@ size_flags_vertical = 1
 layout_mode = 2
 text = "Keybinds"
 
-[node name="Offline" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Tweaks" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Offline"
+text = "Tweaks"
 
-[node name="Back3" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Display" to="." method="_on_display_item_selected"]
 [connection signal="drag_ended" from="MarginContainer/VBoxContainer/HBoxContainer/Volume" to="." method="_on_volume_drag_ended"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Keybinds" to="." method="_on_keybinds_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Offline" to="." method="_on_offline_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Back3" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Tweaks" to="." method="_on_tweaks_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

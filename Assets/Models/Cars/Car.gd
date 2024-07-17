@@ -1,6 +1,9 @@
 extends CharacterBody3D
 
-const DEBUG = false
+const DEBUG = true
+
+var ALLOW_TWEAKS = true
+var tweaks_config = ConfigHandler.load_tweaks_config()
 
 const SPEED_FORWARD = 30
 const SPEED_REVERSED = 20
@@ -17,10 +20,16 @@ const camera_rotation_sensitivity = 0.5
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var HasDubbleJump = true
+var BoostCount = 30
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if ALLOW_TWEAKS:
+		BoostCount = tweaks_config["start_boost"]
 
-func _input(event):
+func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		var camera_rotation = event.relative * (camera_rotation_sensitivity / 100)
 		$CameraYaw.rotate_y(-camera_rotation.x)
@@ -29,12 +38,11 @@ func _input(event):
 		$CameraYaw/CameraPitch.transform = $CameraYaw/CameraPitch.transform.orthonormalized()
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	var wheels_touching_ground = is_on_floor() || is_on_wall() || is_on_ceiling()
 	if not is_on_floor() || (wheels_touching_ground && abs(velocity.x) + abs(velocity).z < 1):
 		velocity.y -= gravity * delta
 
-	var player = get_node("/root/Car")
 	var sliding = Input.is_action_pressed("slide")
 	var boosting = Input.is_action_pressed("boost")
 	var acceleration = Input.get_action_strength("throttle", false)
@@ -44,19 +52,19 @@ func _physics_process(delta):
 	var jump_force = Input.get_action_strength("jump")
 	var tilt_yaw_force = Input.get_axis("tilt_down", "tilt_up")
 	var tilt_pitch_force = Input.get_axis("tilt_left", "tilt_right")
-	
 
 	# Rotate car
 	if abs(velocity.x) + abs(velocity).z > 0.5 :
-		#rotate_object_local(Vector3(0, 1, 0), steering_force/(101-TILT_SENSITIVITY))
 		rotate_y(steering_force/(101-TILT_SENSITIVITY))
 
-	if boosting && player.BoostCount > 0:
-		player.BoostCount -= 10 * delta
+	if boosting && BoostCount > 0:
+		if !(ALLOW_TWEAKS && tweaks_config["unlimited_boost"]):
+			BoostCount -= 10 * delta
+			BoostCount = max(0, BoostCount)
 		velocity = velocity + (transform.basis.z * SPEED_BOOST * delta)
 
 	if wheels_touching_ground:
-		player.HasDubbleJump = true
+		HasDubbleJump = true
 
 		# Rotate car straight if grounded and titled 
 		if is_on_floor_only():
@@ -82,7 +90,6 @@ func _physics_process(delta):
 			velocity.y = velocity_y
 
 		# Apply forward and braking velocity
-
 		velocity = velocity + (transform.basis.z * (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta))
 		velocity = velocity.lerp(Vector3(0, 0, 0), (SPEED_LOSS) * delta)
 
@@ -96,8 +103,8 @@ func _physics_process(delta):
 		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force/(101-TILT_SENSITIVITY))
 
 		# Dubble jump
-		if just_jumped && player.HasDubbleJump:
-			player.HasDubbleJump = false
+		if just_jumped && HasDubbleJump:
+			HasDubbleJump = false
 			velocity = velocity + (transform.basis.y * JUMP_VELOCITY * jump_force)
 
 	# Ensure velocity never goes over max
@@ -119,11 +126,9 @@ func _physics_process(delta):
 		print(velocity)
 		print(wheels_touching_ground)
 		print(transform.basis)
-		print(player.HasDubbleJump)
-		print(player.BoostCount)
+		print(HasDubbleJump)
+		print(BoostCount)
 
 	# Cleanup
 	transform = transform.orthonormalized()
 	move_and_slide()
-	
-
