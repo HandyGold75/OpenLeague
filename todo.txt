@@ -1,0 +1,14 @@
+[Config]
+
+- Support multible keybinds per action.
+- Support binding of Joystick Axis.
+
+[Stadions]
+
+- Implement standard map hitbox.
+- Implement Blender map workflow.
+- Redesing template map.
+
+[Menu]
+
+- Implement pause menu (Pause key).
