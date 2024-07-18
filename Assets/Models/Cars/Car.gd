@@ -23,11 +23,13 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var HasDubbleJump = true
 var BoostCount = 30
 
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+
 	if ALLOW_TWEAKS:
 		BoostCount = tweaks_config["start_boost"]
+
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
@@ -54,8 +56,8 @@ func _physics_process(delta: float):
 	var tilt_pitch_force = Input.get_axis("tilt_left", "tilt_right")
 
 	# Rotate car
-	if abs(velocity.x) + abs(velocity).z > 0.5 :
-		rotate_y(steering_force/(101-TILT_SENSITIVITY))
+	if abs(velocity.x) + abs(velocity).z > 0.5:
+		rotate_y(steering_force / (101 - TILT_SENSITIVITY))
 
 	if boosting && BoostCount > 0:
 		if !(ALLOW_TWEAKS && tweaks_config["unlimited_boost"]):
@@ -66,17 +68,17 @@ func _physics_process(delta: float):
 	if wheels_touching_ground:
 		HasDubbleJump = true
 
-		# Rotate car straight if grounded and titled 
+		# Rotate car straight if grounded and titled
 		if is_on_floor_only():
 			var base = Basis()
 			transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
 			transform.basis.y = lerp(transform.basis.y, base.y, 10 * delta)
 			transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
 		#if is_on_wall_only():
-			#var base = Basis().rotated(get_wall_normal(), deg_to_rad(90))
-			#transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
-			#transform.basis.y = lerp(transform.basis.y, base.y, 10 * delta)
-			#transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
+		#var base = Basis().rotated(get_wall_normal(), deg_to_rad(90))
+		#transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
+		#transform.basis.y = lerp(transform.basis.y, base.y, 10 * delta)
+		#transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
 		if is_on_ceiling_only():
 			var base = Basis().rotated(Vector3(1, 0, 0), deg_to_rad(180))
 			transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
@@ -90,7 +92,13 @@ func _physics_process(delta: float):
 			velocity.y = velocity_y
 
 		# Apply forward and braking velocity
-		velocity = velocity + (transform.basis.z * (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta))
+		velocity = (
+			velocity
+			+ (
+				transform.basis.z
+				* (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta)
+			)
+		)
 		velocity = velocity.lerp(Vector3(0, 0, 0), (SPEED_LOSS) * delta)
 
 		# Jump
@@ -99,8 +107,8 @@ func _physics_process(delta: float):
 
 	else:
 		# Rotate car's yaw and pitch
-		rotate_object_local(Vector3(1, 0, 0), tilt_yaw_force/(101-TILT_SENSITIVITY))
-		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force/(101-TILT_SENSITIVITY))
+		rotate_object_local(Vector3(1, 0, 0), tilt_yaw_force / (101 - TILT_SENSITIVITY))
+		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force / (101 - TILT_SENSITIVITY))
 
 		# Dubble jump
 		if just_jumped && HasDubbleJump:
@@ -117,8 +125,10 @@ func _physics_process(delta: float):
 		for i in get_slide_collision_count():
 			var col_obj = get_slide_collision(i).get_collider()
 			if col_obj.get_collision_layer() == 2:
-				var push_direction = (col_obj.global_transform.origin - global_transform.origin).normalized()
-				col_obj.apply_impulse(push_direction * 10, Vector3.ZERO )
+				var push_direction = (
+					(col_obj.global_transform.origin - global_transform.origin).normalized()
+				)
+				col_obj.apply_impulse(push_direction * 10, Vector3.ZERO)
 
 	# Debug
 	if DEBUG:
