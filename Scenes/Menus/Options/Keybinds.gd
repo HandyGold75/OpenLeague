@@ -23,9 +23,9 @@ var tilt_right_button = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContai
 @onready
 var jump_button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Jump
 @onready
-var slide_button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost
+var slide_button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide 
 @onready
-var boost_button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide
+var boost_button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost
 @onready
 var ball_cam_button = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6/Ball Cam"
 

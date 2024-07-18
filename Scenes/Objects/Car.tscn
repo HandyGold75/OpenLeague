@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://dm3brjr7elrki"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Car.gd" id="1_up2j5"]
+[ext_resource type="PackedScene" uid="uid://cf4r658sbas1s" path="res://Assets/Models/Cars/Template.blend" id="2_q7cve"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6fftd"]
+points = PackedVector3Array(1, 0.25, 2, 1, 0.75, 0.5, 1, 0.75, -2, -1, 0.25, 2, -1, 0.75, 0.5, 1, -0.75, 2, 1, -0.75, -2, -1, 0.75, -2, -1, -0.75, 2, -1, -0.75, -2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uvfm0"]
+points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_75k6t"]
+points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra5or"]
+points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0kvdb"]
+points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
+
+[node name="Car" type="CharacterBody3D"]
+wall_min_slide_angle = 3.14159
+script = ExtResource("1_up2j5")
+
+[node name="Template" parent="." instance=ExtResource("2_q7cve")]
+
+[node name="CameraYaw" type="Node3D" parent="."]
+
+[node name="CameraPitch" type="Node3D" parent="CameraYaw"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraYaw/CameraPitch"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_6fftd")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.5, -1)
+shape = SubResource("ConvexPolygonShape3D_uvfm0")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, -1)
+shape = SubResource("ConvexPolygonShape3D_75k6t")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.5, 1)
+shape = SubResource("ConvexPolygonShape3D_ra5or")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 1)
+shape = SubResource("ConvexPolygonShape3D_0kvdb")
