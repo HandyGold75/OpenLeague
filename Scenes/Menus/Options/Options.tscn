@@ -32,14 +32,20 @@ layout_mode = 2
 [node name="Display" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "Fullscreen"
-popup/item_0/id = 0
 popup/item_1/text = "Maximized"
 popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
+
+[node name="Controller" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+selected = 0
+item_count = 1
+popup/item_0/text = "None"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -67,6 +73,7 @@ layout_mode = 2
 text = "Back"
 
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Display" to="." method="_on_display_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/Controller" to="." method="_on_controller_item_selected"]
 [connection signal="drag_ended" from="MarginContainer/VBoxContainer/HBoxContainer/Volume" to="." method="_on_volume_drag_ended"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Keybinds" to="." method="_on_keybinds_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Tweaks" to="." method="_on_tweaks_pressed"]

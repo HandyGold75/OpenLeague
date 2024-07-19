@@ -1,9 +1,7 @@
 extends Control
 
-@onready
-var start_boost_spinbox = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Start Boost"
-@onready
-var unlimited_boost_toggle = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Unlimited Boost"
+@onready var start_boost_spinbox = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Start Boost"
+@onready var unlimited_boost_toggle = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Unlimited Boost"
 
 
 func _ready():

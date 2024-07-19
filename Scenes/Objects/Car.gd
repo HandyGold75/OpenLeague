@@ -1,9 +1,6 @@
 extends CharacterBody3D
 
-const DEBUG = true
-
-var ALLOW_TWEAKS = true
-var tweaks_config = ConfigHandler.load_tweaks_config()
+const DEBUG = false
 
 const SPEED_FORWARD = 30
 const SPEED_REVERSED = 20
@@ -13,27 +10,32 @@ const SPEED_LOSS = 0.5
 
 const JUMP_VELOCITY = 10
 
-const STEER_SENSITIVITY = 60
-const TILT_SENSITIVITY = 60
+const STEER_SENSITIVITY = 80
+const TILT_SENSITIVITY = 80
 
-const camera_rotation_sensitivity = 0.5
+const CAMERA_ROTATION_SENS = 0.5
+
+const JOY_AXIS_DEADZONE = 0.1
+
+var allow_tweaks = true
+var tweaks_config = ConfigHandler.load_tweaks_config()
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var HasDubbleJump = true
-var BoostCount = 30
+var has_dubble_jump = true
+var boost_count = 30
 
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	if ALLOW_TWEAKS:
-		BoostCount = tweaks_config["start_boost"]
+	if allow_tweaks:
+		boost_count = tweaks_config["start_boost"]
 
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
-		var camera_rotation = event.relative * (camera_rotation_sensitivity / 100)
+		var camera_rotation = event.relative * (CAMERA_ROTATION_SENS / 100)
 		$CameraYaw.rotate_y(-camera_rotation.x)
 		$CameraYaw/CameraPitch.rotate_x(camera_rotation.y)
 		$CameraYaw.transform = $CameraYaw.transform.orthonormalized()
@@ -47,26 +49,44 @@ func _physics_process(delta: float):
 
 	var sliding = Input.is_action_pressed("slide")
 	var boosting = Input.is_action_pressed("boost")
-	var acceleration = Input.get_action_strength("throttle", false)
-	var deceleration = Input.get_action_strength("reverse", false)
-	var steering_force = Input.get_axis("steer_right", "steer_left")
-	var just_jumped = Input.is_action_just_pressed("jump")
-	var jump_force = Input.get_action_strength("jump")
-	var tilt_yaw_force = Input.get_axis("tilt_down", "tilt_up")
-	var tilt_pitch_force = Input.get_axis("tilt_left", "tilt_right")
+	var jumping = Input.is_action_pressed("jump")
+	var acceleration = float(Input.get_action_strength("throttle", false))
+	var deceleration = float(Input.get_action_strength("reverse", false))
+	var steering_force = float(Input.get_axis("steer_right", "steer_left"))
+	var tilt_yaw_force = float(Input.get_axis("tilt_down", "tilt_up"))
+	var tilt_pitch_force = float(Input.get_axis("tilt_left", "tilt_right"))
+
+	
+	if ConfigHandler.selected_controller != null:
+		var axis_x = -Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_X)
+		if axis_x < JOY_AXIS_DEADZONE && axis_x > -JOY_AXIS_DEADZONE:
+			axis_x = 0
+		var axis_y = -Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_Y)
+		if axis_y < JOY_AXIS_DEADZONE && axis_y > -JOY_AXIS_DEADZONE:
+			axis_y = 0
+
+		steering_force = float(min(1, max(-1, steering_force + axis_x)))
+		tilt_yaw_force = float(min(1, max(-1, tilt_yaw_force + axis_y)))
+
 
 	# Rotate car
 	if abs(velocity.x) + abs(velocity).z > 0.5:
 		rotate_y(steering_force / (101 - TILT_SENSITIVITY))
 
-	if boosting && BoostCount > 0:
-		if !(ALLOW_TWEAKS && tweaks_config["unlimited_boost"]):
-			BoostCount -= 10 * delta
-			BoostCount = max(0, BoostCount)
+	if boosting && boost_count > 0:
+		if !(allow_tweaks && tweaks_config["unlimited_boost"]):
+			boost_count -= 10 * delta
+			boost_count = max(0, boost_count)
 		velocity = velocity + (transform.basis.z * SPEED_BOOST * delta)
 
+		if ConfigHandler.selected_controller != null:
+			Input.start_joy_vibration(ConfigHandler.selected_controller, 1, 1, 0)
+	else:
+		if ConfigHandler.selected_controller != null:
+			Input.stop_joy_vibration(ConfigHandler.selected_controller)
+
 	if wheels_touching_ground:
-		HasDubbleJump = true
+		has_dubble_jump = true
 
 		# Rotate car straight if grounded and titled
 		if is_on_floor_only():
@@ -92,18 +112,12 @@ func _physics_process(delta: float):
 			velocity.y = velocity_y
 
 		# Apply forward and braking velocity
-		velocity = (
-			velocity
-			+ (
-				transform.basis.z
-				* (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta)
-			)
-		)
+		velocity = (velocity + (transform.basis.z * (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta)))
 		velocity = velocity.lerp(Vector3(0, 0, 0), (SPEED_LOSS) * delta)
 
 		# Jump
-		if just_jumped:
-			velocity = velocity + (transform.basis.y * JUMP_VELOCITY * jump_force)
+		if jumping:
+			velocity = velocity + (transform.basis.y * JUMP_VELOCITY)
 
 	else:
 		# Rotate car's yaw and pitch
@@ -111,9 +125,9 @@ func _physics_process(delta: float):
 		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force / (101 - TILT_SENSITIVITY))
 
 		# Dubble jump
-		if just_jumped && HasDubbleJump:
-			HasDubbleJump = false
-			velocity = velocity + (transform.basis.y * JUMP_VELOCITY * jump_force)
+		if jumping && has_dubble_jump:
+			has_dubble_jump = false
+			velocity = velocity + (transform.basis.y * JUMP_VELOCITY)
 
 	# Ensure velocity never goes over max
 	velocity.x = maxf(minf(velocity.x, SPEED_MAX), -SPEED_MAX)
@@ -125,19 +139,12 @@ func _physics_process(delta: float):
 		for i in get_slide_collision_count():
 			var col_obj = get_slide_collision(i).get_collider()
 			if col_obj.get_collision_layer() == 2:
-				var push_direction = (
-					(col_obj.global_transform.origin - global_transform.origin).normalized()
-				)
+				var push_direction = (col_obj.global_transform.origin - global_transform.origin).normalized()
 				col_obj.apply_impulse(push_direction * 10, Vector3.ZERO)
 
 	# Debug
 	if DEBUG:
-		print("-----")
-		print(velocity)
-		print(wheels_touching_ground)
-		print(transform.basis)
-		print(HasDubbleJump)
-		print(BoostCount)
+		print(["-----", velocity, wheels_touching_ground, transform.basis, has_dubble_jump, boost_count])
 
 	# Cleanup
 	transform = transform.orthonormalized()

@@ -1,7 +1,8 @@
 [Config]
 
-- Support multible keybinds per action.
-- Support binding of Joystick Axis.
+- [Done] Support multible keybinds per action.
+- [Done] Support binding of Joystick Axis. -> (Not sticks, sticks hardcoded)
+- [Done] Support controller selection and autodetection.
 
 [Stadions]
 
