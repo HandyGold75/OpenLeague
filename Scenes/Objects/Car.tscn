@@ -24,12 +24,14 @@ script = ExtResource("1_up2j5")
 
 [node name="Template" parent="." instance=ExtResource("2_q7cve")]
 
-[node name="CameraYaw" type="Node3D" parent="."]
+[node name="CRoll" type="Node3D" parent="."]
 
-[node name="CameraPitch" type="Node3D" parent="CameraYaw"]
+[node name="CYaw" type="Node3D" parent="CRoll"]
+
+[node name="CPitch" type="Node3D" parent="CRoll/CYaw"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
-[node name="Camera" type="Camera3D" parent="CameraYaw/CameraPitch"]
+[node name="Camera" type="Camera3D" parent="CRoll/CYaw/CPitch"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
 current = true
 

@@ -14,4 +14,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 5)
 [node name="Car" parent="Objects" instance=ExtResource("2_odwxh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="Test" parent="." instance=ExtResource("3_cxc71")]
+[node name="Stadium" type="Node" parent="."]
+
+[node name="Test" parent="Stadium" instance=ExtResource("3_cxc71")]

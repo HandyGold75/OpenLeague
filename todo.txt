@@ -1,8 +1,13 @@
 [Config]
 
 - [Done] Support multible keybinds per action.
-- [Done] Support binding of Joystick Axis. -> (Not sticks, sticks hardcoded)
+- [Done] Support binding of joystick Axis. -> (Not sticks, sticks hardcoded)
 - [Done] Support controller selection and autodetection.
+
+[Controls]
+- Implement control configs.
+- [Done] Implement right joystick camera pan.
+- Implement ball cam.
 
 [Stadions]
 

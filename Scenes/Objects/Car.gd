@@ -14,13 +14,16 @@ const STEER_SENSITIVITY = 80
 const TILT_SENSITIVITY = 80
 
 const CAMERA_ROTATION_SENS = 0.5
+const CAMERA_CENTER_SENS = 10
 
 const JOY_AXIS_DEADZONE = 0.1
 
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+var ball_cam_state = true
+
 var allow_tweaks = true
 var tweaks_config = ConfigHandler.load_tweaks_config()
-
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var has_dubble_jump = true
 var boost_count = 30
@@ -36,10 +39,67 @@ func _ready():
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		var camera_rotation = event.relative * (CAMERA_ROTATION_SENS / 100)
-		$CameraYaw.rotate_y(-camera_rotation.x)
-		$CameraYaw/CameraPitch.rotate_x(camera_rotation.y)
-		$CameraYaw.transform = $CameraYaw.transform.orthonormalized()
-		$CameraYaw/CameraPitch.transform = $CameraYaw/CameraPitch.transform.orthonormalized()
+		$CRoll/CYaw.rotate_y(-camera_rotation.x)
+		$CRoll/CYaw/CPitch.rotate_x(camera_rotation.y)
+		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
+		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
+
+
+func _process(delta: float):
+	if Input.is_action_just_pressed("ball_cam"):
+		ball_cam_state = !ball_cam_state
+
+	if ball_cam_state:
+		# Focus the ball
+		var ball = get_parent().get_node("Ball")
+		var yaw_old = $CRoll/CYaw.rotation.y
+		var pitch_old = $CRoll/CYaw/CPitch.rotation.x
+
+		$CRoll/CYaw.look_at(ball.global_transform.origin, Vector3.UP, true)
+		$CRoll/CYaw/CPitch.look_at(ball.global_transform.origin, Vector3.UP, true)
+
+		$CRoll/CYaw.rotation.x = 0
+		#$CRoll/CYaw.rotation.y = lerp(yaw_old, $CRoll/CYaw.rotation.y ,CAMERA_CENTER_SENS * delta )
+		$CRoll/CYaw.rotation.z = 0
+
+		$CRoll/CYaw/CPitch.rotation.y = 0
+		#$CRoll/CYaw/CPitch.rotation.x = lerp(pitch_old, $CRoll/CYaw/CPitch.rotation.x ,CAMERA_CENTER_SENS * delta )
+		$CRoll/CYaw/CPitch.rotation.z = 0
+
+		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
+		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
+
+	else:
+		# Focus forward
+		$CRoll/CYaw.rotation = lerp($CRoll/CYaw.rotation, Vector3(0, 0, 0), CAMERA_CENTER_SENS * delta)
+		$CRoll/CYaw/CPitch.rotation = lerp($CRoll/CYaw/CPitch.rotation, Vector3(0, 0, 0), CAMERA_CENTER_SENS * delta)
+
+		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
+		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
+
+	# Camera stabilizations
+	$CRoll.rotation.z = -rotation.z
+
+	if ConfigHandler.selected_controller != null:
+		# Rotate camera on right joystick motion
+		var axis_x = Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_RIGHT_X)
+		if axis_x < JOY_AXIS_DEADZONE && axis_x > -JOY_AXIS_DEADZONE:
+			axis_x = 0
+		var axis_y = Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_RIGHT_Y)
+		if axis_y < JOY_AXIS_DEADZONE && axis_y > -JOY_AXIS_DEADZONE:
+			axis_y = 0
+
+		var camera_rotation = Vector2(axis_x, axis_y) * 2000 * (CAMERA_ROTATION_SENS / 100) * delta
+		$CRoll/CYaw.rotate_y(-camera_rotation.x)
+		$CRoll/CYaw/CPitch.rotate_x(camera_rotation.y)
+		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
+		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
+
+		# Vibrate controller if boosting
+		if Input.is_action_pressed("boost") && boost_count > 0:
+			Input.start_joy_vibration(ConfigHandler.selected_controller, 1, 0, 0)
+		else:
+			Input.stop_joy_vibration(ConfigHandler.selected_controller)
 
 
 func _physics_process(delta: float):
@@ -47,16 +107,13 @@ func _physics_process(delta: float):
 	if not is_on_floor() || (wheels_touching_ground && abs(velocity.x) + abs(velocity).z < 1):
 		velocity.y -= gravity * delta
 
-	var sliding = Input.is_action_pressed("slide")
-	var boosting = Input.is_action_pressed("boost")
-	var jumping = Input.is_action_pressed("jump")
 	var acceleration = float(Input.get_action_strength("throttle", false))
 	var deceleration = float(Input.get_action_strength("reverse", false))
 	var steering_force = float(Input.get_axis("steer_right", "steer_left"))
 	var tilt_yaw_force = float(Input.get_axis("tilt_down", "tilt_up"))
 	var tilt_pitch_force = float(Input.get_axis("tilt_left", "tilt_right"))
 
-	
+	# Rotate car
 	if ConfigHandler.selected_controller != null:
 		var axis_x = -Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_X)
 		if axis_x < JOY_AXIS_DEADZONE && axis_x > -JOY_AXIS_DEADZONE:
@@ -68,22 +125,15 @@ func _physics_process(delta: float):
 		steering_force = float(min(1, max(-1, steering_force + axis_x)))
 		tilt_yaw_force = float(min(1, max(-1, tilt_yaw_force + axis_y)))
 
-
-	# Rotate car
 	if abs(velocity.x) + abs(velocity).z > 0.5:
 		rotate_y(steering_force / (101 - TILT_SENSITIVITY))
 
-	if boosting && boost_count > 0:
+	# Boosting
+	if Input.is_action_pressed("boost") && boost_count > 0:
 		if !(allow_tweaks && tweaks_config["unlimited_boost"]):
 			boost_count -= 10 * delta
 			boost_count = max(0, boost_count)
 		velocity = velocity + (transform.basis.z * SPEED_BOOST * delta)
-
-		if ConfigHandler.selected_controller != null:
-			Input.start_joy_vibration(ConfigHandler.selected_controller, 1, 1, 0)
-	else:
-		if ConfigHandler.selected_controller != null:
-			Input.stop_joy_vibration(ConfigHandler.selected_controller)
 
 	if wheels_touching_ground:
 		has_dubble_jump = true
@@ -106,7 +156,7 @@ func _physics_process(delta: float):
 			transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
 
 		# Rotate moving direction to car forwards direction
-		if !sliding:
+		if !Input.is_action_pressed("slide"):
 			var velocity_y = velocity.y
 			velocity = velocity.rotated(transform.basis.z.normalized(), 20 * delta)
 			velocity.y = velocity_y
@@ -116,7 +166,7 @@ func _physics_process(delta: float):
 		velocity = velocity.lerp(Vector3(0, 0, 0), (SPEED_LOSS) * delta)
 
 		# Jump
-		if jumping:
+		if Input.is_action_pressed("jump"):
 			velocity = velocity + (transform.basis.y * JUMP_VELOCITY)
 
 	else:
@@ -125,7 +175,7 @@ func _physics_process(delta: float):
 		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force / (101 - TILT_SENSITIVITY))
 
 		# Dubble jump
-		if jumping && has_dubble_jump:
+		if Input.is_action_pressed("jump") && has_dubble_jump:
 			has_dubble_jump = false
 			velocity = velocity + (transform.basis.y * JUMP_VELOCITY)
 

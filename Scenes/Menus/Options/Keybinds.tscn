@@ -235,6 +235,7 @@ text = "Back"
 
 [node name="Throttle" type="Button" parent="."]
 custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 1" to="." method="_on_throttle_1_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 2" to="." method="_on_throttle_2_pressed"]
