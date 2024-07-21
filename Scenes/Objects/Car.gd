@@ -8,6 +8,8 @@ const SPEED_BOOST = 40
 const SPEED_MAX = 40
 const SPEED_LOSS = 0.5
 
+const BOOST_DRAIN = 25
+
 const JUMP_VELOCITY = 10
 
 const STEER_SENSITIVITY = 80
@@ -26,14 +28,26 @@ var allow_tweaks = true
 var tweaks_config = ConfigHandler.load_tweaks_config()
 
 var has_dubble_jump = true
-var boost_count = 30
+var boost_count = 30:
+	set(value):
+		$Hud/BoxContainer/BoostBar.value = value
+		boost_count = max(0, value)
 
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+	$Hud/BoxContainer/BoostBar.value = boost_count
+
 	if allow_tweaks:
 		boost_count = tweaks_config["start_boost"]
+
+
+func _on_pause_toggled(is_paused: bool) -> void:
+	if is_paused:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _input(event: InputEvent):
@@ -52,8 +66,8 @@ func _process(delta: float):
 	if ball_cam_state:
 		# Focus the ball
 		var ball = get_parent().get_node("Ball")
-		var yaw_old = $CRoll/CYaw.rotation.y
-		var pitch_old = $CRoll/CYaw/CPitch.rotation.x
+		# var yaw_old = $CRoll/CYaw.rotation.y
+		# var pitch_old = $CRoll/CYaw/CPitch.rotation.x
 
 		$CRoll/CYaw.look_at(ball.global_transform.origin, Vector3.UP, true)
 		$CRoll/CYaw/CPitch.look_at(ball.global_transform.origin, Vector3.UP, true)
@@ -131,8 +145,7 @@ func _physics_process(delta: float):
 	# Boosting
 	if Input.is_action_pressed("boost") && boost_count > 0:
 		if !(allow_tweaks && tweaks_config["unlimited_boost"]):
-			boost_count -= 10 * delta
-			boost_count = max(0, boost_count)
+			boost_count -= BOOST_DRAIN * delta
 		velocity = velocity + (transform.basis.z * SPEED_BOOST * delta)
 
 	if wheels_touching_ground:

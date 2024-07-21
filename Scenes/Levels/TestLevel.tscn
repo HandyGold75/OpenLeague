@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtnnfsks65dy"]
+[gd_scene load_steps=5 format=3 uid="uid://dtnnfsks65dy"]
 
 [ext_resource type="PackedScene" uid="uid://dm3brjr7elrki" path="res://Scenes/Objects/Car.tscn" id="2_odwxh"]
 [ext_resource type="PackedScene" uid="uid://bvumxhwaojrmo" path="res://Scenes/Objects/Ball.tscn" id="2_t2yqr"]
 [ext_resource type="PackedScene" uid="uid://dvrq2144vqiy0" path="res://Scenes/Stadiums/TestStadium.tscn" id="3_cxc71"]
+[ext_resource type="PackedScene" uid="uid://b60vv16seeq26" path="res://Scenes/Menus/Pause.tscn" id="4_wne0x"]
 
 [node name="Test" type="Node3D"]
 
@@ -17,3 +18,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 [node name="Stadium" type="Node" parent="."]
 
 [node name="Test" parent="Stadium" instance=ExtResource("3_cxc71")]
+
+[node name="Pause" parent="." instance=ExtResource("4_wne0x")]
+
+[connection signal="toggled" from="Pause" to="Objects/Car" method="_on_pause_toggled"]

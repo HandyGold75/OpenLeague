@@ -6,30 +6,30 @@ var remapping_action = null
 var remapping_index = null
 
 @onready var buttons = {
-	"throttle_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 1",
-	"throttle_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 2",
-	"reverse_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Reverse 1",
-	"reverse_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Reverse 2",
-	"steer_left_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/Steer Left 1",
-	"steer_left_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/Steer Left 2",
-	"steer_right_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4/Steer Right 1",
-	"steer_right_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4/Steer Right 2",
-	"tilt_up_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Tilt Up 1",
-	"tilt_up_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Tilt Up 2",
-	"tilt_down_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/Tilt Down 1",
-	"tilt_down_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/Tilt Down 2",
-	"tilt_left_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Tilt Left 1",
-	"tilt_left_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Tilt Left 2",
-	"tilt_right_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/Tilt Right 1",
-	"tilt_right_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/Tilt Right 2",
-	"jump_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Jump 1",
-	"jump_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Jump 2",
-	"slide_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide 1",
-	"slide_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide 2",
-	"boost_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost 1",
-	"boost_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost 2",
-	"ball_cam_1": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6/Ball Cam 1",
-	"ball_cam_2": $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6/Ball Cam 2",
+	"throttle_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 1",
+	"throttle_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 2",
+	"reverse_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Reverse 1",
+	"reverse_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Reverse 2",
+	"steer_left_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3/Steer Left 1",
+	"steer_left_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3/Steer Left 2",
+	"steer_right_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4/Steer Right 1",
+	"steer_right_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4/Steer Right 2",
+	"tilt_up_1": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Tilt Up 1",
+	"tilt_up_2": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer/Tilt Up 2",
+	"tilt_down_1": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/Tilt Down 1",
+	"tilt_down_2": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/Tilt Down 2",
+	"tilt_left_1": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Tilt Left 1",
+	"tilt_left_2": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Tilt Left 2",
+	"tilt_right_1": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/Tilt Right 1",
+	"tilt_right_2": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4/Tilt Right 2",
+	"jump_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Jump 1",
+	"jump_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Jump 2",
+	"slide_1": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide 1",
+	"slide_2": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer5/Slide 2",
+	"boost_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost 1",
+	"boost_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6/Boost 2",
+	"ball_cam_1": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6/Ball Cam 1",
+	"ball_cam_2": $"CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6/Ball Cam 2",
 }
 
 
@@ -199,7 +199,3 @@ func _on_ball_cam_1_pressed():
 
 func _on_ball_cam_2_pressed():
 	start_rebind("ball_cam", 1)
-
-
-func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Menus/Options/Options.tscn")

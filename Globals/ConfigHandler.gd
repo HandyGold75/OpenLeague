@@ -3,7 +3,7 @@ extends Node
 const CONFIG_FILE_PATH = "user://config.ini"
 
 const DEFAULT_VIDEO_DISPLAY = 0
-const DEFAULT_AUDIO_MASTER_VOLUME = 50
+const DEFAULT_AUDIO_MASTER_VOLUME = 0.5
 const DEFAULT_KEYBINDING_THROTTLE = "W;joypadaxis_5"
 const DEFAULT_KEYBINDING_REVERSE = "S;joypadaxis_4"
 const DEFAULT_KEYBINDING_STEER_LEFT = "A;A"
@@ -48,6 +48,7 @@ func _ready():
 		config_file.save(CONFIG_FILE_PATH)
 
 	activate_video_config()
+	activate_audio_config()
 	activate_keybinding_config()
 
 	Input.joy_connection_changed.connect(joy_changed)
@@ -91,12 +92,16 @@ func load_video_config():
 
 
 func activate_video_config():
-	if config_file.get_value("video", "display") == 0:
+	var config = load_video_config()
+	if config["display"] == 0:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	elif config_file.get_value("video", "display") == 1:
+		get_viewport().size = DisplayServer.screen_get_size()
+	elif config["display"] == 1:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
-	elif config_file.get_value("video", "display") == 2:
+		get_viewport().size = DisplayServer.screen_get_size()
+	elif config["display"] == 2:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		get_viewport().size = Vector2(1280, 720)
 
 
 # Audio config handler
@@ -107,7 +112,7 @@ func set_audio_defaults():
 
 func validate_audio_config():
 	var state = true
-	if typeof(config_file.get_value("audio", "master_volume")) != TYPE_INT:
+	if typeof(config_file.get_value("audio", "master_volume")) != TYPE_FLOAT:
 		print('Found invalid config! "[audio] master_volume != TYPE_INT"')
 		state = false
 	return state
@@ -125,6 +130,11 @@ func load_audio_config():
 	for key in config_file.get_section_keys("audio"):
 		config[key] = config_file.get_value("audio", key)
 	return config
+
+
+func activate_audio_config():
+	var config = load_audio_config()
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(config["master_volume"]))
 
 
 # Keybinding config handler

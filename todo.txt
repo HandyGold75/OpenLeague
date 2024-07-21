@@ -17,4 +17,5 @@
 
 [Menu]
 
-- Implement pause menu (Pause key).
+- [Done] Implement pause menu (Pause key).
+- Implement HUD.

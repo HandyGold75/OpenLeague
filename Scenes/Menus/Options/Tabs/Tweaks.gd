@@ -1,7 +1,7 @@
 extends Control
 
-@onready var start_boost_spinbox = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Start Boost"
-@onready var unlimited_boost_toggle = $"MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Unlimited Boost"
+@onready var start_boost_spinbox = $"CenterContainer/VBoxContainer/HBoxContainer/Start Boost"
+@onready var unlimited_boost_toggle = $"CenterContainer/VBoxContainer/HBoxContainer2/Unlimited Boost"
 
 
 func _ready():
@@ -16,7 +16,3 @@ func _on_start_boost_value_changed(value: float):
 
 func _on_unlimited_boost_toggled(toggled_on: bool):
 	ConfigHandler.save_tweaks_config("unlimited_boost", toggled_on)
-
-
-func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Menus/Options/Options.tscn")

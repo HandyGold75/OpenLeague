@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm3brjr7elrki"]
+[gd_scene load_steps=11 format=3 uid="uid://dm3brjr7elrki"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Car.gd" id="1_up2j5"]
 [ext_resource type="PackedScene" uid="uid://cf4r658sbas1s" path="res://Assets/Models/Cars/Template.blend" id="2_q7cve"]
+[ext_resource type="Texture2D" uid="uid://bucilpfoen0m7" path="res://Assets/Textures/HUD/Under.svg" id="3_qcwen"]
+[ext_resource type="Texture2D" uid="uid://c48abvsj3ev63" path="res://Assets/Textures/HUD/Over.svg" id="4_uotfe"]
+[ext_resource type="Texture2D" uid="uid://80oedvubwhjs" path="res://Assets/Textures/HUD/Progress.svg" id="5_l3hap"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6fftd"]
 points = PackedVector3Array(1, 0.25, 2, 1, 0.75, 0.5, 1, 0.75, -2, -1, 0.25, 2, -1, 0.75, 0.5, 1, -0.75, 2, 1, -0.75, -2, -1, 0.75, -2, -1, -0.75, 2, -1, -0.75, -2)
@@ -54,3 +57,33 @@ shape = SubResource("ConvexPolygonShape3D_ra5or")
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 1)
 shape = SubResource("ConvexPolygonShape3D_0kvdb")
+
+[node name="Hud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Hud"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -328.0
+offset_top = -328.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="BoostBar" type="TextureProgressBar" parent="Hud/BoxContainer"]
+layout_mode = 2
+fill_mode = 4
+texture_under = ExtResource("3_qcwen")
+texture_over = ExtResource("4_uotfe")
+texture_progress = ExtResource("5_l3hap")
+tint_under = Color(0, 0, 0, 0.392157)
+tint_over = Color(0, 0, 0, 1)
+tint_progress = Color(0.968627, 0.882353, 0.388235, 1)
