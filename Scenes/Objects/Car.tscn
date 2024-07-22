@@ -22,21 +22,11 @@ points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, 
 points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
 
 [node name="Car" type="CharacterBody3D"]
-wall_min_slide_angle = 3.14159
+floor_block_on_wall = false
+floor_snap_length = 0.25
 script = ExtResource("1_up2j5")
 
 [node name="Template" parent="." instance=ExtResource("2_q7cve")]
-
-[node name="CRoll" type="Node3D" parent="."]
-
-[node name="CYaw" type="Node3D" parent="CRoll"]
-
-[node name="CPitch" type="Node3D" parent="CRoll/CYaw"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-
-[node name="Camera" type="Camera3D" parent="CRoll/CYaw/CPitch"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
-current = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -57,6 +47,22 @@ shape = SubResource("ConvexPolygonShape3D_ra5or")
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 1)
 shape = SubResource("ConvexPolygonShape3D_0kvdb")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../CYaw")
+update_rotation = false
+update_scale = false
+
+[node name="CYaw" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98024e-08, 0, 1, 0, 0, 0)
+top_level = true
+
+[node name="CPitch" type="Node3D" parent="CYaw"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="Camera" type="Camera3D" parent="CYaw/CPitch"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
+current = true
 
 [node name="Hud" type="Control" parent="."]
 layout_mode = 3

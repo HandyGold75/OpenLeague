@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 const DEBUG = false
+const ALLOW_TWEAKS = true
 
 const SPEED_FORWARD = 30
 const SPEED_REVERSED = 20
@@ -12,26 +13,33 @@ const BOOST_DRAIN = 25
 
 const JUMP_VELOCITY = 10
 
-const STEER_SENSITIVITY = 80
-const TILT_SENSITIVITY = 80
-
-const CAMERA_ROTATION_SENS = 0.5
-const CAMERA_CENTER_SENS = 10
-
-const JOY_AXIS_DEADZONE = 0.1
-
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var ball_cam_state = true
-
-var allow_tweaks = true
-var tweaks_config = ConfigHandler.load_tweaks_config()
+var cam_just_moved = false
+var cam_just_moved_signal = null
+var cam_just_moved_reseter = func(): cam_just_moved = false ; cam_just_moved_signal = null
 
 var has_dubble_jump = true
+
+# Config
+var control_config = ConfigHandler.load_control_config()
+var tweaks_config = ConfigHandler.load_tweaks_config()
+
+# Configurable (Control)
+var steer_sens = control_config["steer_sens"]
+var tilt_sens = control_config["tilt_sens"]
+var joystick_deadzone = control_config["joystick_deadzone"]
+var camera_rotation_sens = control_config["camera_rotation_sens"]
+var camera_center_speed = control_config["camera_center_speed"]
+var camera_center_delay = control_config["camera_center_delay"]
+
+# Configurable (Tweaks)
+var unlimited_boost = false
 var boost_count = 30:
 	set(value):
 		$Hud/BoxContainer/BoostBar.value = value
-		boost_count = max(0, value)
+		boost_count = clampf(value, 0, 100)
 
 
 func _ready():
@@ -39,81 +47,101 @@ func _ready():
 
 	$Hud/BoxContainer/BoostBar.value = boost_count
 
-	if allow_tweaks:
+	if ALLOW_TWEAKS:
+		unlimited_boost = tweaks_config["unlimited_boost"]
 		boost_count = tweaks_config["start_boost"]
+
+
+func apply_configs():
+	control_config = ConfigHandler.load_control_config()
+	tweaks_config = ConfigHandler.load_tweaks_config()
+
+	steer_sens = control_config["steer_sens"]
+	tilt_sens = control_config["tilt_sens"]
+	joystick_deadzone = control_config["joystick_deadzone"]
+	camera_rotation_sens = control_config["camera_rotation_sens"]
+	camera_center_speed = control_config["camera_center_speed"]
+	camera_center_delay = control_config["camera_center_delay"]
+
+	if ALLOW_TWEAKS:
+		unlimited_boost = tweaks_config["unlimited_boost"]
 
 
 func _on_pause_toggled(is_paused: bool) -> void:
 	if is_paused:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
+		apply_configs()
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
-		var camera_rotation = event.relative * (CAMERA_ROTATION_SENS / 100)
-		$CRoll/CYaw.rotate_y(-camera_rotation.x)
-		$CRoll/CYaw/CPitch.rotate_x(camera_rotation.y)
-		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
-		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
+		var camera_rotation = event.relative * (float(camera_rotation_sens) / 10000)
+		$CYaw.rotate_y(-camera_rotation.x)
+		$CYaw/CPitch.rotate_x(camera_rotation.y)
+		$CYaw.transform = $CYaw.transform.orthonormalized()
+		$CYaw/CPitch.transform = $CYaw/CPitch.transform.orthonormalized()
+
+		cam_just_moved = true
+		if camera_center_delay > 0:
+			if cam_just_moved_signal != null && cam_just_moved_signal.is_connected(cam_just_moved_reseter):
+				cam_just_moved_signal.disconnect(cam_just_moved_reseter)
+			cam_just_moved_signal = get_tree().create_timer(camera_center_delay).timeout
+			cam_just_moved_signal.connect(cam_just_moved_reseter)
 
 
 func _process(delta: float):
 	if Input.is_action_just_pressed("ball_cam"):
 		ball_cam_state = !ball_cam_state
 
-	if ball_cam_state:
-		# Focus the ball
-		var ball = get_parent().get_node("Ball")
-		# var yaw_old = $CRoll/CYaw.rotation.y
-		# var pitch_old = $CRoll/CYaw/CPitch.rotation.x
-
-		$CRoll/CYaw.look_at(ball.global_transform.origin, Vector3.UP, true)
-		$CRoll/CYaw/CPitch.look_at(ball.global_transform.origin, Vector3.UP, true)
-
-		$CRoll/CYaw.rotation.x = 0
-		#$CRoll/CYaw.rotation.y = lerp(yaw_old, $CRoll/CYaw.rotation.y ,CAMERA_CENTER_SENS * delta )
-		$CRoll/CYaw.rotation.z = 0
-
-		$CRoll/CYaw/CPitch.rotation.y = 0
-		#$CRoll/CYaw/CPitch.rotation.x = lerp(pitch_old, $CRoll/CYaw/CPitch.rotation.x ,CAMERA_CENTER_SENS * delta )
-		$CRoll/CYaw/CPitch.rotation.z = 0
-
-		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
-		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
-
-	else:
-		# Focus forward
-		$CRoll/CYaw.rotation = lerp($CRoll/CYaw.rotation, Vector3(0, 0, 0), CAMERA_CENTER_SENS * delta)
-		$CRoll/CYaw/CPitch.rotation = lerp($CRoll/CYaw/CPitch.rotation, Vector3(0, 0, 0), CAMERA_CENTER_SENS * delta)
-
-		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
-		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
-
-	# Camera stabilizations
-	$CRoll.rotation.z = -rotation.z
-
 	if ConfigHandler.selected_controller != null:
 		# Rotate camera on right joystick motion
-		var axis_x = Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_RIGHT_X)
-		if axis_x < JOY_AXIS_DEADZONE && axis_x > -JOY_AXIS_DEADZONE:
+		var axis_x = float(Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_RIGHT_X))
+		if axis_x < joystick_deadzone && axis_x > -joystick_deadzone:
 			axis_x = 0
-		var axis_y = Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_RIGHT_Y)
-		if axis_y < JOY_AXIS_DEADZONE && axis_y > -JOY_AXIS_DEADZONE:
+		var axis_y = float(Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_RIGHT_Y))
+		if axis_y < joystick_deadzone && axis_y > -joystick_deadzone:
 			axis_y = 0
 
-		var camera_rotation = Vector2(axis_x, axis_y) * 2000 * (CAMERA_ROTATION_SENS / 100) * delta
-		$CRoll/CYaw.rotate_y(-camera_rotation.x)
-		$CRoll/CYaw/CPitch.rotate_x(camera_rotation.y)
-		$CRoll/CYaw.transform = $CRoll/CYaw.transform.orthonormalized()
-		$CRoll/CYaw/CPitch.transform = $CRoll/CYaw/CPitch.transform.orthonormalized()
+		if axis_x != 0 || axis_y != 0:
+			cam_just_moved = true
+			$CYaw.rotation.y = lerp_angle($CYaw.rotation.y, -axis_x * 1.5 + rotation.y, camera_rotation_sens * delta)
+			$CYaw/CPitch.rotation.x = lerp_angle($CYaw/CPitch.rotation.x, axis_y, camera_rotation_sens * delta)
+			$CYaw.transform = $CYaw.transform.orthonormalized()
+			$CYaw/CPitch.transform = $CYaw/CPitch.transform.orthonormalized()
+		elif cam_just_moved_signal == null:
+			cam_just_moved = false
 
 		# Vibrate controller if boosting
 		if Input.is_action_pressed("boost") && boost_count > 0:
 			Input.start_joy_vibration(ConfigHandler.selected_controller, 1, 0, 0)
 		else:
 			Input.stop_joy_vibration(ConfigHandler.selected_controller)
+
+	if !cam_just_moved:
+		if ball_cam_state:
+			# Focus the ball
+			var ball = get_parent().get_node("Ball")
+			var yaw_old = $CYaw.rotation.y
+			var pitch_old = $CYaw/CPitch.rotation.x
+
+			$CYaw.look_at(ball.global_transform.origin, Vector3.UP, true)
+			$CYaw/CPitch.look_at(ball.global_transform.origin, Vector3.UP, true)
+			$CYaw.rotation.x = 0
+			$CYaw.rotation.y = lerp_angle(yaw_old, $CYaw.rotation.y, camera_center_speed * delta)
+			$CYaw.rotation.z = 0
+			$CYaw/CPitch.rotation.y = 0
+			$CYaw/CPitch.rotation.x = lerp_angle(pitch_old, $CYaw/CPitch.rotation.x, camera_center_speed * delta)
+			$CYaw/CPitch.rotation.z = 0
+
+		else:
+			# Focus forward
+			$CYaw.rotation.y = lerp_angle($CYaw.rotation.y, rotation.y, camera_center_speed * delta)
+			$CYaw/CPitch.rotation.x = lerp_angle($CYaw/CPitch.rotation.x, 0.0, camera_center_speed * delta)
+
+		$CYaw.transform = $CYaw.transform.orthonormalized()
+		$CYaw/CPitch.transform = $CYaw/CPitch.transform.orthonormalized()
 
 
 func _physics_process(delta: float):
@@ -129,44 +157,31 @@ func _physics_process(delta: float):
 
 	# Rotate car
 	if ConfigHandler.selected_controller != null:
-		var axis_x = -Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_X)
-		if axis_x < JOY_AXIS_DEADZONE && axis_x > -JOY_AXIS_DEADZONE:
+		var axis_x = -float(Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_X))
+		if axis_x < joystick_deadzone && axis_x > -joystick_deadzone:
 			axis_x = 0
-		var axis_y = -Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_Y)
-		if axis_y < JOY_AXIS_DEADZONE && axis_y > -JOY_AXIS_DEADZONE:
+		var axis_y = -float(Input.get_joy_axis(ConfigHandler.selected_controller, JOY_AXIS_LEFT_Y))
+		if axis_y < joystick_deadzone && axis_y > -joystick_deadzone:
 			axis_y = 0
 
-		steering_force = float(min(1, max(-1, steering_force + axis_x)))
-		tilt_yaw_force = float(min(1, max(-1, tilt_yaw_force + axis_y)))
+		steering_force = clampf(steering_force + axis_x, -1, 1)
+		tilt_yaw_force = clampf(tilt_yaw_force + axis_y, -1, 1)
 
 	if abs(velocity.x) + abs(velocity).z > 0.5:
-		rotate_y(steering_force / (101 - TILT_SENSITIVITY))
+		rotate_object_local(Vector3(0, 1, 0), steering_force / (101 - steer_sens))
 
 	# Boosting
 	if Input.is_action_pressed("boost") && boost_count > 0:
-		if !(allow_tweaks && tweaks_config["unlimited_boost"]):
+		if !(ALLOW_TWEAKS && unlimited_boost):
 			boost_count -= BOOST_DRAIN * delta
 		velocity = velocity + (transform.basis.z * SPEED_BOOST * delta)
 
 	if wheels_touching_ground:
 		has_dubble_jump = true
 
-		# Rotate car straight if grounded and titled
+		# Rotate car straight if grounded
 		if is_on_floor_only():
-			var base = Basis()
-			transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
-			transform.basis.y = lerp(transform.basis.y, base.y, 10 * delta)
-			transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
-		#if is_on_wall_only():
-		#var base = Basis().rotated(get_wall_normal(), deg_to_rad(90))
-		#transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
-		#transform.basis.y = lerp(transform.basis.y, base.y, 10 * delta)
-		#transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
-		if is_on_ceiling_only():
-			var base = Basis().rotated(Vector3(1, 0, 0), deg_to_rad(180))
-			transform.basis.x.y = lerp(transform.basis.x.y, base.x.y, 10 * delta)
-			transform.basis.y = lerp(transform.basis.y, base.y, 10 * delta)
-			transform.basis.z.y = lerp(transform.basis.z.y, base.z.y, 10 * delta)
+			rotation = rotation.lerp(Vector3(0, rotation.y, 0), 10 * delta)
 
 		# Rotate moving direction to car forwards direction
 		if !Input.is_action_pressed("slide"):
@@ -175,7 +190,7 @@ func _physics_process(delta: float):
 			velocity.y = velocity_y
 
 		# Apply forward and braking velocity
-		velocity = (velocity + (transform.basis.z * (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta)))
+		velocity = velocity + (transform.basis.z * (((acceleration * SPEED_FORWARD) - (deceleration * SPEED_REVERSED)) * delta))
 		velocity = velocity.lerp(Vector3(0, 0, 0), (SPEED_LOSS) * delta)
 
 		# Jump
@@ -184,8 +199,8 @@ func _physics_process(delta: float):
 
 	else:
 		# Rotate car's yaw and pitch
-		rotate_object_local(Vector3(1, 0, 0), tilt_yaw_force / (101 - TILT_SENSITIVITY))
-		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force / (101 - TILT_SENSITIVITY))
+		rotate_object_local(Vector3(1, 0, 0), tilt_yaw_force / (101 - tilt_sens))
+		rotate_object_local(Vector3(0, 0, 1), tilt_pitch_force / (101 - tilt_sens))
 
 		# Dubble jump
 		if Input.is_action_pressed("jump") && has_dubble_jump:
@@ -193,9 +208,9 @@ func _physics_process(delta: float):
 			velocity = velocity + (transform.basis.y * JUMP_VELOCITY)
 
 	# Ensure velocity never goes over max
-	velocity.x = maxf(minf(velocity.x, SPEED_MAX), -SPEED_MAX)
-	velocity.y = maxf(minf(velocity.y, SPEED_MAX), -SPEED_MAX)
-	velocity.z = maxf(minf(velocity.z, SPEED_MAX), -SPEED_MAX)
+	velocity.x = clampf(velocity.x, -SPEED_MAX, SPEED_MAX)
+	velocity.y = clampf(velocity.y, -SPEED_MAX, SPEED_MAX)
+	velocity.z = clampf(velocity.z, -SPEED_MAX, SPEED_MAX)
 
 	# Collisions
 	if is_on_floor():

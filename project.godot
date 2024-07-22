@@ -19,6 +19,12 @@ config/icon="res://Assets/Images/Logo.png"
 
 ConfigHandler="*res://Globals/ConfigHandler.gd"
 
+[debug]
+
+multirun/number_of_windows=2
+multirun/add_custom_args=true
+multirun/window_args=["listen", "join"]
+
 [display]
 
 window/size/viewport_width=2560
@@ -27,6 +33,10 @@ window/size/mode=3
 window/size/initial_position_type=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/multirun/plugin.cfg", "res://addons/repl/plugin.cfg")
 
 [importer_defaults]
 

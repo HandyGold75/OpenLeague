@@ -1,21 +1,22 @@
 [Config]
-
-- [Done] Support multible keybinds per action.
-- [Done] Support binding of joystick Axis. -> (Not sticks, sticks hardcoded)
-- [Done] Support controller selection and autodetection.
+- [Done] Support multiple key binds per action.
+- [Done] Support binding of joystick Axis.
+- [Done] Support controller selection and auto detection.
 
 [Controls]
 - Implement control configs.
 - [Done] Implement right joystick camera pan.
-- Implement ball cam.
+- [Done] Implement ball cam.
 
-[Stadions]
-
+[Stations]
 - Implement standard map hitbox.
 - Implement Blender map workflow.
-- Redesing template map.
+- Redesign template map.
+
+[Car]
+- Implement wheel animation.
 
 [Menu]
-
 - [Done] Implement pause menu (Pause key).
 - Implement HUD.
+- Implement keyboard & controller navigation.

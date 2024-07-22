@@ -4,6 +4,12 @@ const CONFIG_FILE_PATH = "user://config.ini"
 
 const DEFAULT_VIDEO_DISPLAY = 0
 const DEFAULT_AUDIO_MASTER_VOLUME = 0.5
+const DEFAULT_CONTROL_STEER_SENS = 75
+const DEFAULT_CONTROL_TILT_SENS = 75
+const DEFAULT_CONTROL_JOYSTICK_DEADZONE = 0.1
+const DEFAULT_CONTROL_CAMERA_ROTATION_SENS = 50
+const DEFAULT_CONTROL_CAMERA_CENTER_SPEED = 10
+const DEFAULT_CONTROL_CAMERA_CENTER_DELAY = 0.2
 const DEFAULT_KEYBINDING_THROTTLE = "W;joypadaxis_5"
 const DEFAULT_KEYBINDING_REVERSE = "S;joypadaxis_4"
 const DEFAULT_KEYBINDING_STEER_LEFT = "A;A"
@@ -28,23 +34,30 @@ func _ready():
 	if !FileAccess.file_exists(CONFIG_FILE_PATH):
 		set_video_defaults()
 		set_audio_defaults()
+		set_control_defaults()
 		set_keybinding_defaults()
 		set_tweaks_defaults()
 		config_file.save(CONFIG_FILE_PATH)
 	else:
 		config_file.load(CONFIG_FILE_PATH)
 
+	var valid = true
 	if !validate_video_config():
 		set_video_defaults()
-		config_file.save(CONFIG_FILE_PATH)
+		valid = false
 	if !validate_keybinding_config():
 		set_keybinding_defaults()
-		config_file.save(CONFIG_FILE_PATH)
+		valid = false
+	if !validate_control_config():
+		set_control_defaults()
+		valid = false
 	if !validate_audio_config():
 		set_audio_defaults()
-		config_file.save(CONFIG_FILE_PATH)
+		valid = false
 	if !validate_tweaks_config():
 		set_tweaks_defaults()
+		valid = false
+	if !valid:
 		config_file.save(CONFIG_FILE_PATH)
 
 	activate_video_config()
@@ -113,7 +126,7 @@ func set_audio_defaults():
 func validate_audio_config():
 	var state = true
 	if typeof(config_file.get_value("audio", "master_volume")) != TYPE_FLOAT:
-		print('Found invalid config! "[audio] master_volume != TYPE_INT"')
+		print('Found invalid config! "[audio] master_volume != TYPE_FLOAT"')
 		state = false
 	return state
 
@@ -135,6 +148,54 @@ func load_audio_config():
 func activate_audio_config():
 	var config = load_audio_config()
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(config["master_volume"]))
+
+
+# Control config handler
+func set_control_defaults():
+	config_file.set_value("control", "steer_sens", DEFAULT_CONTROL_STEER_SENS)
+	config_file.set_value("control", "tilt_sens", DEFAULT_CONTROL_TILT_SENS)
+	config_file.set_value("control", "joystick_deadzone", DEFAULT_CONTROL_JOYSTICK_DEADZONE)
+	config_file.set_value("control", "camera_rotation_sens", DEFAULT_CONTROL_CAMERA_ROTATION_SENS)
+	config_file.set_value("control", "camera_center_speed", DEFAULT_CONTROL_CAMERA_CENTER_SPEED)
+	config_file.set_value("control", "camera_center_delay", DEFAULT_CONTROL_CAMERA_CENTER_DELAY)
+	config_file.save(CONFIG_FILE_PATH)
+
+
+func validate_control_config():
+	var state = true
+	if typeof(config_file.get_value("control", "steer_sens")) != TYPE_INT:
+		print('Found invalid config! "[control] steer_sens != TYPE_INT"')
+		state = false
+	if typeof(config_file.get_value("control", "tilt_sens")) != TYPE_INT:
+		print('Found invalid config! "[control] tilt_sens != TYPE_INT"')
+		state = false
+	if typeof(config_file.get_value("control", "joystick_deadzone")) != TYPE_FLOAT:
+		print('Found invalid config! "[control] joystick_deadzone !=  TYPE_FLOAT"')
+		state = false
+	if typeof(config_file.get_value("control", "camera_rotation_sens")) != TYPE_INT:
+		print('Found invalid config! "[control] camera_rotation_sens != TYPE_INT"')
+		state = false
+	if typeof(config_file.get_value("control", "camera_center_speed")) != TYPE_INT:
+		print('Found invalid config! "[control] camera_center_speed != TYPE_INT"')
+		state = false
+	if typeof(config_file.get_value("control", "camera_center_delay")) != TYPE_FLOAT:
+		print('Found invalid config! "[control] camera_center_delay != TYPE_FLOAT"')
+		state = false
+	return state
+
+
+func save_control_config(key: String, value):
+	if config_file.get_value("control", key) == null:
+		return
+	config_file.set_value("control", key, value)
+	config_file.save(CONFIG_FILE_PATH)
+
+
+func load_control_config():
+	var config = {}
+	for key in config_file.get_section_keys("control"):
+		config[key] = config_file.get_value("control", key)
+	return config
 
 
 # Keybinding config handler
