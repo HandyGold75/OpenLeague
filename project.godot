@@ -13,6 +13,8 @@ config_version=5
 config/name="Open League"
 run/main_scene="res://Scenes/Menus/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.392157, 0.392157, 0.392157, 1)
+boot_splash/image="res://Assets/Images/Logo.png"
 config/icon="res://Assets/Images/Logo.png"
 
 [autoload]
@@ -27,16 +29,19 @@ multirun/window_args=["listen", "join"]
 
 [display]
 
-window/size/viewport_width=2560
-window/size/viewport_height=1440
-window/size/mode=3
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/initial_position_type=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/multirun/plugin.cfg", "res://addons/repl/plugin.cfg")
+enabled=PackedStringArray("res://addons/repl/plugin.cfg")
+
+[filesystem]
+
+import/fbx2gltf/enabled=false
 
 [importer_defaults]
 

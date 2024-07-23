@@ -1,22 +1,41 @@
-[Config]
-- [Done] Support multiple key binds per action.
-- [Done] Support binding of joystick Axis.
-- [Done] Support controller selection and auto detection.
+[TODO]
+	[Stadiums]
+		Implement stadium selector.
+		Implement standard map hitbox.
+		Implement Blender map workflow.
+		Redesign template map.
 
-[Controls]
-- Implement control configs.
-- [Done] Implement right joystick camera pan.
-- [Done] Implement ball cam.
+	[Car]
+		Implement car selector.
+		Implement dash.
+		Implement wheel animation.
+		Implement boost effects.
+		Implement jump effects.
 
-[Stations]
-- Implement standard map hitbox.
-- Implement Blender map workflow.
-- Redesign template map.
+	[Menu]
+		Implement HUD.
+		Implement keyboard & controller navigation.
 
-[Car]
-- Implement wheel animation.
+	[Online]
+		Develop auth server.
+		Implement auth.
+		Develop profiles/ stats server.
+		Implement profiles/ stats.
+		Develop game match server.
+		Implement game match.
 
-[Menu]
-- [Done] Implement pause menu (Pause key).
-- Implement HUD.
-- Implement keyboard & controller navigation.
+[IN PROGRESS]
+
+[DONE]
+	[Config]
+		Support multiple key binds per action.
+		Support binding of joystick Axis.
+		Support controller selection and auto detection.
+
+	[Controls]
+		Implement control configs.
+		Implement right joystick camera pan.
+		Implement ball cam.
+
+	[Menu]
+		Implement pause menu (Pause key).

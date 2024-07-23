@@ -34,12 +34,14 @@ size_flags_horizontal = 3
 text = "Throttle"
 
 [node name="Throttle 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Throttle 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -50,12 +52,14 @@ size_flags_horizontal = 3
 text = "Reverse"
 
 [node name="Reverse 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Reverse 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,12 +70,14 @@ size_flags_horizontal = 3
 text = "Steer Left"
 
 [node name="Steer Left 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Steer Left 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -82,12 +88,14 @@ size_flags_horizontal = 3
 text = "Steer Right"
 
 [node name="Steer Right 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Steer Right 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -98,12 +106,14 @@ size_flags_horizontal = 3
 text = "Jump"
 
 [node name="Jump 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Jump 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -114,12 +124,14 @@ size_flags_horizontal = 3
 text = "Boost"
 
 [node name="Boost 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Boost 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
 layout_mode = 2
@@ -133,12 +145,14 @@ size_flags_horizontal = 3
 text = "Tilt Up"
 
 [node name="Tilt Up 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Tilt Up 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -149,12 +163,14 @@ size_flags_horizontal = 3
 text = "Tilt Down"
 
 [node name="Tilt Down 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Tilt Down 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -165,12 +181,14 @@ size_flags_horizontal = 3
 text = "Tilt Left"
 
 [node name="Tilt Left 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Tilt Left 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -181,12 +199,14 @@ size_flags_horizontal = 3
 text = "Tilt Right"
 
 [node name="Tilt Right 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Tilt Right 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -197,12 +217,14 @@ size_flags_horizontal = 3
 text = "Slide"
 
 [node name="Slide 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Slide 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer5"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -213,12 +235,14 @@ size_flags_horizontal = 3
 text = "Ball Cam"
 
 [node name="Ball Cam 1" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [node name="Ball Cam 2" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+text_overrun_behavior = 1
 
 [connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 1" to="." method="_on_throttle_1_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 2" to="." method="_on_throttle_2_pressed"]

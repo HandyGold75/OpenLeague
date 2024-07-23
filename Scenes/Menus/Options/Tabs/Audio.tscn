@@ -22,12 +22,15 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Volume"
 
-[node name="Volume" type="HSlider" parent="CenterContainer/VBoxContainer"]
+[node name="Volume" type="HSlider" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -35,4 +38,4 @@ size_flags_vertical = 1
 max_value = 1.0
 step = 0.05
 
-[connection signal="drag_ended" from="CenterContainer/VBoxContainer/Volume" to="." method="_on_volume_drag_ended"]
+[connection signal="drag_ended" from="CenterContainer/VBoxContainer/HBoxContainer/Volume" to="." method="_on_volume_drag_ended"]
