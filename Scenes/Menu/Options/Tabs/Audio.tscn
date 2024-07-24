@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://t4515s2yoimi"]
 
-[ext_resource type="Script" path="res://Scenes/Menus/Options/Tabs/Audio.gd" id="1_ivujc"]
+[ext_resource type="Script" path="res://Scenes/Menu/Options/Tabs/Audio.gd" id="1_ivujc"]
 
 [node name="Audio" type="Control"]
 layout_mode = 3

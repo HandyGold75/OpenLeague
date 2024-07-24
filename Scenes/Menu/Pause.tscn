@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://b60vv16seeq26"]
 
-[ext_resource type="Script" path="res://Scenes/Menus/Pause.gd" id="1_wa47f"]
-[ext_resource type="PackedScene" uid="uid://cw2v83fcgbqso" path="res://Scenes/Menus/Options/Tabs/Video.tscn" id="2_iot86"]
-[ext_resource type="PackedScene" uid="uid://t4515s2yoimi" path="res://Scenes/Menus/Options/Tabs/Audio.tscn" id="3_ye15g"]
-[ext_resource type="PackedScene" uid="uid://dim3p3ky8u4ef" path="res://Scenes/Menus/Options/Tabs/Controls.tscn" id="4_al18o"]
-[ext_resource type="PackedScene" uid="uid://fiusubqi375" path="res://Scenes/Menus/Options/Tabs/Keybinds.tscn" id="5_hn2l3"]
-[ext_resource type="PackedScene" uid="uid://o8nn0umgean2" path="res://Scenes/Menus/Options/Tabs/Tweaks.tscn" id="6_6ifoi"]
+[ext_resource type="Script" path="res://Scenes/Menu/Pause.gd" id="1_wa47f"]
+[ext_resource type="PackedScene" uid="uid://cw2v83fcgbqso" path="res://Scenes/Menu/Options/Tabs/Video.tscn" id="2_iot86"]
+[ext_resource type="PackedScene" uid="uid://t4515s2yoimi" path="res://Scenes/Menu/Options/Tabs/Audio.tscn" id="3_ye15g"]
+[ext_resource type="PackedScene" uid="uid://dim3p3ky8u4ef" path="res://Scenes/Menu/Options/Tabs/Controls.tscn" id="4_al18o"]
+[ext_resource type="PackedScene" uid="uid://fiusubqi375" path="res://Scenes/Menu/Options/Tabs/Keybinds.tscn" id="5_hn2l3"]
+[ext_resource type="PackedScene" uid="uid://o8nn0umgean2" path="res://Scenes/Menu/Options/Tabs/Tweaks.tscn" id="6_6ifoi"]
 
 [node name="Pause" type="Control"]
 process_mode = 3

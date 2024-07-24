@@ -74,121 +74,113 @@ size = Vector3(1, 50, 200)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8uk7a"]
 data = PackedVector3Array(-0.5, 25, 100, 0.5, 25, 100, -0.5, -25, 100, 0.5, 25, 100, 0.5, -25, 100, -0.5, -25, 100, 0.5, 25, -100, -0.5, 25, -100, 0.5, -25, -100, -0.5, 25, -100, -0.5, -25, -100, 0.5, -25, -100, 0.5, 25, 100, 0.5, 25, -100, 0.5, -25, 100, 0.5, 25, -100, 0.5, -25, -100, 0.5, -25, 100, -0.5, 25, -100, -0.5, 25, 100, -0.5, -25, -100, -0.5, 25, 100, -0.5, -25, 100, -0.5, -25, -100, 0.5, 25, 100, -0.5, 25, 100, 0.5, 25, -100, -0.5, 25, 100, -0.5, 25, -100, 0.5, 25, -100, -0.5, -25, 100, 0.5, -25, 100, -0.5, -25, -100, 0.5, -25, 100, 0.5, -25, -100, -0.5, -25, -100)
 
-[node name="Test" type="Node3D"]
+[node name="TestStadium" type="Node3D"]
 
-[node name="Base" type="Node" parent="."]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Base"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 500, 0)
-shadow_enabled = true
-
-[node name="Stadium" type="Node" parent="."]
-
-[node name="Floor" type="MeshInstance3D" parent="Stadium"]
+[node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_a3jxe")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_fdabn")
 
-[node name="Ceiling" type="MeshInstance3D" parent="Stadium"]
+[node name="Ceiling" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 250, 0)
 mesh = SubResource("BoxMesh_yr52s")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/Ceiling"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Ceiling"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/Ceiling/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xbm05")
 
-[node name="WallLong1" type="MeshInstance3D" parent="Stadium"]
+[node name="WallLong1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 125, 250)
 mesh = SubResource("BoxMesh_lf4mg")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallLong1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallLong1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallLong1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLong1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_hj0oj")
 
-[node name="WallLong2" type="MeshInstance3D" parent="Stadium"]
+[node name="WallLong2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 125, -250)
 mesh = SubResource("BoxMesh_60qyx")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallLong2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallLong2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallLong2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLong2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0pjax")
 
-[node name="WallShort1" type="Node" parent="Stadium"]
+[node name="WallShort1" type="Node" parent="."]
 
-[node name="WallShort1" type="MeshInstance3D" parent="Stadium/WallShort1"]
+[node name="WallShort1" type="MeshInstance3D" parent="WallShort1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 150, 0)
 mesh = SubResource("BoxMesh_jvckf")
 skeleton = NodePath("../..")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallShort1/WallShort1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallShort1/WallShort1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort1/WallShort1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort1/WallShort1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0k4r5")
 
-[node name="WallShort2" type="MeshInstance3D" parent="Stadium/WallShort1"]
+[node name="WallShort2" type="MeshInstance3D" parent="WallShort1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 25, 150)
 mesh = SubResource("BoxMesh_ji1oc")
 skeleton = NodePath("../..")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallShort1/WallShort2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallShort1/WallShort2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort1/WallShort2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort1/WallShort2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_jutp2")
 
-[node name="WallShort3" type="MeshInstance3D" parent="Stadium/WallShort1"]
+[node name="WallShort3" type="MeshInstance3D" parent="WallShort1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 25, -150)
 mesh = SubResource("BoxMesh_cqf8e")
 skeleton = NodePath("../..")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallShort1/WallShort3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallShort1/WallShort3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort1/WallShort3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort1/WallShort3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0bk7a")
 
-[node name="WallShort2" type="Node" parent="Stadium"]
+[node name="WallShort2" type="Node" parent="."]
 
-[node name="WallShort1" type="MeshInstance3D" parent="Stadium/WallShort2"]
+[node name="WallShort1" type="MeshInstance3D" parent="WallShort2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 150, 0)
 mesh = SubResource("BoxMesh_tcnvi")
 skeleton = NodePath("../../WallShort1")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallShort2/WallShort1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallShort2/WallShort1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort2/WallShort1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort2/WallShort1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_wqmjw")
 
-[node name="WallShort2" type="MeshInstance3D" parent="Stadium/WallShort2"]
+[node name="WallShort2" type="MeshInstance3D" parent="WallShort2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 25, 150)
 mesh = SubResource("BoxMesh_i2gta")
 skeleton = NodePath("../..")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallShort2/WallShort2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallShort2/WallShort2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort2/WallShort2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort2/WallShort2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_k71x5")
 
-[node name="WallShort3" type="MeshInstance3D" parent="Stadium/WallShort2"]
+[node name="WallShort3" type="MeshInstance3D" parent="WallShort2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 25, -150)
 mesh = SubResource("BoxMesh_v2s27")
 skeleton = NodePath("../..")
 metadata/_edit_group_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stadium/WallShort2/WallShort3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallShort2/WallShort3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/WallShort2/WallShort3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort2/WallShort3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8uk7a")

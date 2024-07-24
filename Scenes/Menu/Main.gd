@@ -6,11 +6,11 @@ func _ready():
 
 
 func _on_start_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Levels/TestLevel.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Level/Main.tscn")
 
 
 func _on_options_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Menus/Options/Options.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Menu/Options/Options.tscn")
 
 
 func _on_quit_pressed():

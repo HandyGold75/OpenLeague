@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dm3brjr7elrki"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/Car.gd" id="1_up2j5"]
+[ext_resource type="Script" path="res://Scenes/Level/Objects/Car.gd" id="1_up2j5"]
 [ext_resource type="PackedScene" uid="uid://cf4r658sbas1s" path="res://Assets/Models/Cars/Template.blend" id="2_q7cve"]
 [ext_resource type="Texture2D" uid="uid://bucilpfoen0m7" path="res://Assets/Textures/HUD/Under.svg" id="3_qcwen"]
 [ext_resource type="Texture2D" uid="uid://c48abvsj3ev63" path="res://Assets/Textures/HUD/Over.svg" id="4_uotfe"]

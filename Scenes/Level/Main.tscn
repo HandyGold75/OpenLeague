@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtnnfsks65dy"]
+
+[ext_resource type="PackedScene" uid="uid://cr5pb2o1h7qcb" path="res://Scenes/Level/Objects/Stadium.tscn" id="1_nft20"]
+[ext_resource type="PackedScene" uid="uid://bvumxhwaojrmo" path="res://Scenes/Level/Objects/Ball.tscn" id="2_4ysyc"]
+[ext_resource type="PackedScene" uid="uid://dm3brjr7elrki" path="res://Scenes/Level/Objects/Car.tscn" id="3_1pqtl"]
+[ext_resource type="PackedScene" uid="uid://b60vv16seeq26" path="res://Scenes/Menu/Pause.tscn" id="4_fse2o"]
+
+[node name="Test" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.92388, -3.32732e-09, 0.382683, -0.382683, -1.67276e-08, 0.92388, 3.32733e-09, -1, -1.67276e-08, 0, 20, 0)
+
+[node name="Stadium" parent="." instance=ExtResource("1_nft20")]
+
+[node name="Ball" parent="." instance=ExtResource("2_4ysyc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 5)
+
+[node name="Car" parent="." instance=ExtResource("3_1pqtl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Pause" parent="." instance=ExtResource("4_fse2o")]
+
+[connection signal="toggled" from="Pause" to="Car" method="_on_pause_toggled"]

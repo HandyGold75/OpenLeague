@@ -24,4 +24,4 @@ func _on_back_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	set_pause_state(false)
-	get_tree().change_scene_to_file("res://Scenes/Menus/Main.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Menu/Main.tscn")

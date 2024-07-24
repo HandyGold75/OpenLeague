@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3ysnxdem5log"]
 
-[ext_resource type="Script" path="res://Scenes/Menus/Options/Options.gd" id="1_hhxeu"]
-[ext_resource type="PackedScene" uid="uid://cw2v83fcgbqso" path="res://Scenes/Menus/Options/Tabs/Video.tscn" id="2_05j6j"]
-[ext_resource type="PackedScene" uid="uid://o8nn0umgean2" path="res://Scenes/Menus/Options/Tabs/Tweaks.tscn" id="3_tqnj2"]
-[ext_resource type="PackedScene" uid="uid://fiusubqi375" path="res://Scenes/Menus/Options/Tabs/Keybinds.tscn" id="4_6aknx"]
-[ext_resource type="PackedScene" uid="uid://dim3p3ky8u4ef" path="res://Scenes/Menus/Options/Tabs/Controls.tscn" id="4_8pvys"]
-[ext_resource type="PackedScene" uid="uid://t4515s2yoimi" path="res://Scenes/Menus/Options/Tabs/Audio.tscn" id="5_p13tn"]
+[ext_resource type="Script" path="res://Scenes/Menu/Options/Options.gd" id="1_hhxeu"]
+[ext_resource type="PackedScene" uid="uid://cw2v83fcgbqso" path="res://Scenes/Menu/Options/Tabs/Video.tscn" id="2_05j6j"]
+[ext_resource type="PackedScene" uid="uid://o8nn0umgean2" path="res://Scenes/Menu/Options/Tabs/Tweaks.tscn" id="3_tqnj2"]
+[ext_resource type="PackedScene" uid="uid://fiusubqi375" path="res://Scenes/Menu/Options/Tabs/Keybinds.tscn" id="4_6aknx"]
+[ext_resource type="PackedScene" uid="uid://dim3p3ky8u4ef" path="res://Scenes/Menu/Options/Tabs/Controls.tscn" id="4_8pvys"]
+[ext_resource type="PackedScene" uid="uid://t4515s2yoimi" path="res://Scenes/Menu/Options/Tabs/Audio.tscn" id="5_p13tn"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
