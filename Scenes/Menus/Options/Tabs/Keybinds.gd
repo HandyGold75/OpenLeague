@@ -1,11 +1,11 @@
 extends Control
 
-var is_remapping = false
+var is_remapping := false
 var remapping_button = null
-var remapping_action = null
-var remapping_index = null
+var remapping_action := ""
+var remapping_index := -1
 
-@onready var buttons = {
+@onready var buttons := {
 	"throttle_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 1",
 	"throttle_2": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/Throttle 2",
 	"reverse_1": $"CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Reverse 1",
@@ -33,8 +33,8 @@ var remapping_index = null
 }
 
 
-func _ready():
-	var keybinding_config = ConfigHandler.load_keybinding_config()
+func _ready() -> void:
+	var keybinding_config := ConfigHandler.load_keybinding_config()
 	buttons["throttle_1"].text = input_to_string(keybinding_config["throttle"][0])
 	buttons["throttle_2"].text = input_to_string(keybinding_config["throttle"][1])
 	buttons["reverse_1"].text = input_to_string(keybinding_config["reverse"][0])
@@ -61,7 +61,7 @@ func _ready():
 	buttons["ball_cam_2"].text = input_to_string(keybinding_config["ball_cam"][1])
 
 
-func start_rebind(action: String, index: int):
+func start_rebind(action: String, index: int) -> void:
 	if is_remapping:
 		return
 	is_remapping = true
@@ -72,8 +72,8 @@ func start_rebind(action: String, index: int):
 	remapping_index = index
 
 
-func input_to_string(event: InputEvent):
-	var value
+func input_to_string(event: InputEvent) -> String:
+	var value := ""
 	if event is InputEventKey:
 		value = OS.get_keycode_string(event.keycode)
 	elif event is InputEventMouseButton:
@@ -85,7 +85,7 @@ func input_to_string(event: InputEvent):
 	return value
 
 
-func _input(event: InputEvent):
+func _input(event: InputEvent) -> void:
 	if !is_remapping:
 		return
 	if !(event is InputEventKey || event is InputEventMouseButton || event is InputEventJoypadButton || event is InputEventJoypadMotion):
@@ -99,103 +99,103 @@ func _input(event: InputEvent):
 	remapping_button.text = input_to_string(event)
 
 	remapping_button = null
-	remapping_action = null
+	remapping_action = ""
 	is_remapping = false
 
 	accept_event()
 
 
-func _on_throttle_1_pressed():
+func _on_throttle_1_pressed() -> void:
 	start_rebind("throttle", 0)
 
 
-func _on_throttle_2_pressed():
+func _on_throttle_2_pressed() -> void:
 	start_rebind("throttle", 1)
 
 
-func _on_reverse_1_pressed():
+func _on_reverse_1_pressed() -> void:
 	start_rebind("reverse", 0)
 
 
-func _on_reverse_2_pressed():
+func _on_reverse_2_pressed() -> void:
 	start_rebind("reverse", 1)
 
 
-func _on_steer_left_1_pressed():
+func _on_steer_left_1_pressed() -> void:
 	start_rebind("steer_left", 0)
 
 
-func _on_steer_left_2_pressed():
+func _on_steer_left_2_pressed() -> void:
 	start_rebind("steer_left", 1)
 
 
-func _on_steer_right_1_pressed():
+func _on_steer_right_1_pressed() -> void:
 	start_rebind("steer_right", 0)
 
 
-func _on_steer_right_2_pressed():
+func _on_steer_right_2_pressed() -> void:
 	start_rebind("steer_right", 1)
 
 
-func _on_tilt_up_1_pressed():
+func _on_tilt_up_1_pressed() -> void:
 	start_rebind("tilt_up", 0)
 
 
-func _on_tilt_up_2_pressed():
+func _on_tilt_up_2_pressed() -> void:
 	start_rebind("tilt_up", 1)
 
 
-func _on_tilt_down_1_pressed():
+func _on_tilt_down_1_pressed() -> void:
 	start_rebind("tilt_down", 0)
 
 
-func _on_tilt_down_2_pressed():
+func _on_tilt_down_2_pressed() -> void:
 	start_rebind("tilt_down", 1)
 
 
-func _on_tilt_left_1_pressed():
+func _on_tilt_left_1_pressed() -> void:
 	start_rebind("tilt_left", 0)
 
 
-func _on_tilt_left_2_pressed():
+func _on_tilt_left_2_pressed() -> void:
 	start_rebind("tilt_left", 1)
 
 
-func _on_tilt_right_1_pressed():
+func _on_tilt_right_1_pressed() -> void:
 	start_rebind("tilt_right", 0)
 
 
-func _on_tilt_right_2_pressed():
+func _on_tilt_right_2_pressed() -> void:
 	start_rebind("tilt_right", 1)
 
 
-func _on_jump_1_pressed():
+func _on_jump_1_pressed() -> void:
 	start_rebind("jump", 0)
 
 
-func _on_jump_2_pressed():
+func _on_jump_2_pressed() -> void:
 	start_rebind("jump", 1)
 
 
-func _on_slide_1_pressed():
+func _on_slide_1_pressed() -> void:
 	start_rebind("slide", 0)
 
 
-func _on_slide_2_pressed():
+func _on_slide_2_pressed() -> void:
 	start_rebind("slide", 1)
 
 
-func _on_boost_1_pressed():
+func _on_boost_1_pressed() -> void:
 	start_rebind("boost", 0)
 
 
-func _on_boost_2_pressed():
+func _on_boost_2_pressed() -> void:
 	start_rebind("boost", 1)
 
 
-func _on_ball_cam_1_pressed():
+func _on_ball_cam_1_pressed() -> void:
 	start_rebind("ball_cam", 0)
 
 
-func _on_ball_cam_2_pressed():
+func _on_ball_cam_2_pressed() -> void:
 	start_rebind("ball_cam", 1)

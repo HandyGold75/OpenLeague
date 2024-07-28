@@ -22,26 +22,35 @@ const DEFAULT_KEYBINDING_JUMP = "Space;joypad_0"
 const DEFAULT_KEYBINDING_SLIDE = "X;joypad_2"
 const DEFAULT_KEYBINDING_BOOST = "Shift;joypad_1"
 const DEFAULT_KEYBINDING_BALL_CAM = "E;joypad_3"
-const DEFAULT_TWEAKS_START_BOOST = 30
-const DEFAULT_TWEAKS_UNLIMITED_BOOST = false
 
-var config_file = ConfigFile.new()
-
-var selected_controller = null
+var config_file := ConfigFile.new()
 
 
-func _ready():
+class HotConfig:
+	var selected_controller = null
+
+	var level_selected_stadium := "Default"
+	var level_selected_ball := "Default"
+	var level_selected_car := "Default"
+
+	var tweaks_start_boost := 30
+	var tweaks_unlimited_boost := false
+
+
+var hotconfig := HotConfig.new()
+
+
+func _ready() -> void:
 	if !FileAccess.file_exists(CONFIG_FILE_PATH):
 		set_video_defaults()
 		set_audio_defaults()
 		set_control_defaults()
 		set_keybinding_defaults()
-		set_tweaks_defaults()
 		config_file.save(CONFIG_FILE_PATH)
 	else:
 		config_file.load(CONFIG_FILE_PATH)
 
-	var valid = true
+	var valid := true
 	if !validate_video_config():
 		set_video_defaults()
 		valid = false
@@ -54,9 +63,6 @@ func _ready():
 	if !validate_audio_config():
 		set_audio_defaults()
 		valid = false
-	if !validate_tweaks_config():
-		set_tweaks_defaults()
-		valid = false
 	if !valid:
 		config_file.save(CONFIG_FILE_PATH)
 
@@ -68,44 +74,44 @@ func _ready():
 
 
 # Signal handlers
-func joy_changed(device_id: int, connected: bool):
-	if !connected && device_id == selected_controller:
-		selected_controller = null
+func joy_changed(device_id: int, connected: bool) -> void:
+	if !connected && device_id == hotconfig.selected_controller:
+		hotconfig.selected_controller = null
 		return
-	if connected && selected_controller == null:
-		selected_controller = device_id
+	if connected && hotconfig.selected_controller == null:
+		hotconfig.selected_controller = device_id
 
 
 # Video config handler
-func set_video_defaults():
+func set_video_defaults() -> void:
 	config_file.set_value("video", "display", DEFAULT_VIDEO_DISPLAY)
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func validate_video_config():
-	var state = true
+func validate_video_config() -> bool:
+	var state := true
 	if typeof(config_file.get_value("video", "display")) != TYPE_INT:
 		print('Found invalid config! "[video] display != TYPE_INT"')
 		state = false
 	return state
 
 
-func save_video_config(key: String, value):
+func save_video_config(key: String, value) -> void:
 	if config_file.get_value("video", key) == null:
 		return
 	config_file.set_value("video", key, value)
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func load_video_config():
-	var config = {}
+func load_video_config() -> Dictionary:
+	var config := {}
 	for key in config_file.get_section_keys("video"):
 		config[key] = config_file.get_value("video", key)
 	return config
 
 
-func activate_video_config():
-	var config = load_video_config()
+func activate_video_config() -> void:
+	var config := load_video_config()
 	if config["display"] == 0:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		get_viewport().size = DisplayServer.screen_get_size()
@@ -118,40 +124,40 @@ func activate_video_config():
 
 
 # Audio config handler
-func set_audio_defaults():
+func set_audio_defaults() -> void:
 	config_file.set_value("audio", "master_volume", DEFAULT_AUDIO_MASTER_VOLUME)
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func validate_audio_config():
-	var state = true
+func validate_audio_config() -> bool:
+	var state := true
 	if typeof(config_file.get_value("audio", "master_volume")) != TYPE_FLOAT:
 		print('Found invalid config! "[audio] master_volume != TYPE_FLOAT"')
 		state = false
 	return state
 
 
-func save_audio_config(key: String, value):
+func save_audio_config(key: String, value) -> void:
 	if config_file.get_value("audio", key) == null:
 		return
 	config_file.set_value("audio", key, value)
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func load_audio_config():
-	var config = {}
+func load_audio_config() -> Dictionary:
+	var config := {}
 	for key in config_file.get_section_keys("audio"):
 		config[key] = config_file.get_value("audio", key)
 	return config
 
 
-func activate_audio_config():
-	var config = load_audio_config()
+func activate_audio_config() -> void:
+	var config := load_audio_config()
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(config["master_volume"]))
 
 
 # Control config handler
-func set_control_defaults():
+func set_control_defaults() -> void:
 	config_file.set_value("control", "steer_sens", DEFAULT_CONTROL_STEER_SENS)
 	config_file.set_value("control", "tilt_sens", DEFAULT_CONTROL_TILT_SENS)
 	config_file.set_value("control", "joystick_deadzone", DEFAULT_CONTROL_JOYSTICK_DEADZONE)
@@ -161,8 +167,8 @@ func set_control_defaults():
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func validate_control_config():
-	var state = true
+func validate_control_config() -> bool:
+	var state := true
 	if typeof(config_file.get_value("control", "steer_sens")) != TYPE_INT:
 		print('Found invalid config! "[control] steer_sens != TYPE_INT"')
 		state = false
@@ -184,22 +190,22 @@ func validate_control_config():
 	return state
 
 
-func save_control_config(key: String, value):
+func save_control_config(key: String, value) -> void:
 	if config_file.get_value("control", key) == null:
 		return
 	config_file.set_value("control", key, value)
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func load_control_config():
-	var config = {}
+func load_control_config() -> Dictionary:
+	var config := {}
 	for key in config_file.get_section_keys("control"):
 		config[key] = config_file.get_value("control", key)
 	return config
 
 
 # Keybinding config handler
-func set_keybinding_defaults():
+func set_keybinding_defaults() -> void:
 	config_file.set_value("keybinding", "throttle", DEFAULT_KEYBINDING_THROTTLE)
 	config_file.set_value("keybinding", "reverse", DEFAULT_KEYBINDING_REVERSE)
 	config_file.set_value("keybinding", "steer_left", DEFAULT_KEYBINDING_STEER_LEFT)
@@ -215,8 +221,8 @@ func set_keybinding_defaults():
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func validate_keybinding_config():
-	var state = true
+func validate_keybinding_config() -> bool:
+	var state := true
 	if typeof(config_file.get_value("keybinding", "throttle")) != TYPE_STRING:
 		print('Found invalid config! "[keybinding] xxx != TYPE_STRING"')
 		state = false
@@ -256,8 +262,8 @@ func validate_keybinding_config():
 	return state
 
 
-func save_keybinding_config(key: String, index: int, event: InputEvent):
-	var value
+func save_keybinding_config(key: String, index: int, event: InputEvent) -> void:
+	var value := ""
 	if event is InputEventKey:
 		value = OS.get_keycode_string(event.keycode)
 	elif event is InputEventMouseButton:
@@ -280,12 +286,11 @@ func save_keybinding_config(key: String, index: int, event: InputEvent):
 	config_file.save(CONFIG_FILE_PATH)
 
 
-func load_keybinding_config():
-	var config = {}
+func load_keybinding_config() -> Dictionary:
+	var config := {}
 	for key in config_file.get_section_keys("keybinding"):
-		var events = []
+		var events := []
 		var values = config_file.get_value("keybinding", key).split(";")
-
 		for value in values:
 			var event
 			if value.begins_with("joypadaxis_"):
@@ -307,41 +312,9 @@ func load_keybinding_config():
 	return config
 
 
-func activate_keybinding_config():
-	var config = load_keybinding_config()
+func activate_keybinding_config() -> void:
+	var config := load_keybinding_config()
 	for key in config:
 		InputMap.action_erase_events(key)
 		for event in config[key]:
 			InputMap.action_add_event(key, event)
-
-
-# Tweaks config handler
-func set_tweaks_defaults():
-	config_file.set_value("tweaks", "start_boost", DEFAULT_TWEAKS_START_BOOST)
-	config_file.set_value("tweaks", "unlimited_boost", DEFAULT_TWEAKS_UNLIMITED_BOOST)
-	config_file.save(CONFIG_FILE_PATH)
-
-
-func validate_tweaks_config():
-	var state = true
-	if typeof(config_file.get_value("tweaks", "start_boost")) != TYPE_INT:
-		print('Found invalid config! "[tweaks] start_boost != TYPE_INT"')
-		state = false
-	if typeof(config_file.get_value("tweaks", "unlimited_boost")) != TYPE_BOOL:
-		print('Found invalid config! "[tweaks] unlimited_boost != TYPE_BOOL"')
-		state = false
-	return state
-
-
-func save_tweaks_config(key: String, value):
-	if config_file.get_value("tweaks", key) == null:
-		return
-	config_file.set_value("tweaks", key, value)
-	config_file.save(CONFIG_FILE_PATH)
-
-
-func load_tweaks_config():
-	var config = {}
-	for key in config_file.get_section_keys("tweaks"):
-		config[key] = config_file.get_value("tweaks", key)
-	return config

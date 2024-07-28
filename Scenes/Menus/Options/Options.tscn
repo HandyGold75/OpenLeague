@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3ysnxdem5log"]
+[gd_scene load_steps=6 format=3 uid="uid://d3ysnxdem5log"]
 
-[ext_resource type="Script" path="res://Scenes/Menu/Options/Options.gd" id="1_hhxeu"]
-[ext_resource type="PackedScene" uid="uid://cw2v83fcgbqso" path="res://Scenes/Menu/Options/Tabs/Video.tscn" id="2_05j6j"]
-[ext_resource type="PackedScene" uid="uid://o8nn0umgean2" path="res://Scenes/Menu/Options/Tabs/Tweaks.tscn" id="3_tqnj2"]
-[ext_resource type="PackedScene" uid="uid://fiusubqi375" path="res://Scenes/Menu/Options/Tabs/Keybinds.tscn" id="4_6aknx"]
-[ext_resource type="PackedScene" uid="uid://dim3p3ky8u4ef" path="res://Scenes/Menu/Options/Tabs/Controls.tscn" id="4_8pvys"]
-[ext_resource type="PackedScene" uid="uid://t4515s2yoimi" path="res://Scenes/Menu/Options/Tabs/Audio.tscn" id="5_p13tn"]
+[ext_resource type="Script" path="res://Scenes/Menus/Options/Options.gd" id="1_hhxeu"]
+[ext_resource type="PackedScene" uid="uid://cw2v83fcgbqso" path="res://Scenes/Menus/Options/Tabs/Video.tscn" id="2_05j6j"]
+[ext_resource type="PackedScene" uid="uid://fiusubqi375" path="res://Scenes/Menus/Options/Tabs/Keybinds.tscn" id="4_6aknx"]
+[ext_resource type="PackedScene" uid="uid://dim3p3ky8u4ef" path="res://Scenes/Menus/Options/Tabs/Controls.tscn" id="4_8pvys"]
+[ext_resource type="PackedScene" uid="uid://t4515s2yoimi" path="res://Scenes/Menus/Options/Tabs/Audio.tscn" id="5_p13tn"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -31,15 +30,15 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(750, 500)
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 clip_tabs = false
 
 [node name="Video" parent="CenterContainer/VBoxContainer/TabContainer" instance=ExtResource("2_05j6j")]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="Audio" parent="CenterContainer/VBoxContainer/TabContainer" instance=ExtResource("5_p13tn")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -52,11 +51,6 @@ metadata/_tab_index = 2
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
-
-[node name="Tweaks" parent="CenterContainer/VBoxContainer/TabContainer" instance=ExtResource("3_tqnj2")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 4
 
 [node name="Back" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2

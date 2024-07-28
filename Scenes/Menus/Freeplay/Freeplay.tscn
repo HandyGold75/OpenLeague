@@ -1,0 +1,122 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds1ise1v8rmay"]
+
+[ext_resource type="Script" path="res://Scenes/Menus/Freeplay/Freeplay.gd" id="1_aprnh"]
+
+[node name="Freeplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aprnh")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Stadium"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Ball"
+
+[node name="Label3" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Car"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Stadium" type="OptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Default"
+popup/item_1/text = "TestGround"
+popup/item_1/id = 1
+
+[node name="Ball" type="OptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+selected = 0
+item_count = 1
+popup/item_0/text = "Default"
+
+[node name="Car" type="OptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+selected = 0
+item_count = 1
+popup/item_0/text = "Default"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Start Boost"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Unlimited Boost"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Start Boost" type="SpinBox" parent="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Unlimited Boost" type="CheckButton" parent="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Back" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="item_selected" from="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Stadium" to="." method="_on_stadium_item_selected"]
+[connection signal="item_selected" from="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Ball" to="." method="_on_ball_item_selected"]
+[connection signal="item_selected" from="CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Car" to="." method="_on_car_item_selected"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2/Start Boost" to="." method="_on_start_boost_value_changed"]
+[connection signal="toggled" from="CenterContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2/Unlimited Boost" to="." method="_on_unlimited_boost_toggled"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

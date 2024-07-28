@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cf4r658sbas1s"
-path="res://.godot/imported/Template.blend-2ea2ba06eb9089586ec105e694ba81b1.scn"
+uid="uid://kgpe7sno3313"
+path="res://.godot/imported/Default.blend-c99ab0c3ec2cb5ef648eb4de24c5c2b5.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Cars/Template.blend"
-dest_files=["res://.godot/imported/Template.blend-2ea2ba06eb9089586ec105e694ba81b1.scn"]
+source_file="res://Assets/Models/Balls/Default.blend"
+dest_files=["res://.godot/imported/Default.blend-c99ab0c3ec2cb5ef648eb4de24c5c2b5.scn"]
 
 [params]
 

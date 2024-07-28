@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://kgpe7sno3313"
-path="res://.godot/imported/Template.blend-55542f9119d5152c60481a7ee66e4eb7.scn"
+uid="uid://cvh8nua8ghvyw"
+path="res://.godot/imported/Default.blend-8b429d77ddbfe493a69db50e766bcd55.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Balls/Template.blend"
-dest_files=["res://.godot/imported/Template.blend-55542f9119d5152c60481a7ee66e4eb7.scn"]
+source_file="res://Assets/Models/Stadiums/Default.blend"
+dest_files=["res://.godot/imported/Default.blend-8b429d77ddbfe493a69db50e766bcd55.scn"]
 
 [params]
 
@@ -31,7 +31,13 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Plane": {
+"generate/physics": true
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

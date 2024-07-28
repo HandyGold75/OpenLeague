@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cr5pb2o1h7qcb"]
-
-[ext_resource type="PackedScene" uid="uid://dvrq2144vqiy0" path="res://Assets/Models/Stadiums/TestStadium.tscn" id="1_i74jm"]
-
-[node name="Stadium" type="Node3D"]
-
-[node name="TestStadium" parent="." instance=ExtResource("1_i74jm")]

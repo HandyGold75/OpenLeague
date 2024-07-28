@@ -1,52 +1,48 @@
-[gd_scene load_steps=11 format=3 uid="uid://dm3brjr7elrki"]
+[gd_scene load_steps=10 format=3 uid="uid://dk4njy36a0vq3"]
 
-[ext_resource type="Script" path="res://Scenes/Level/Objects/Car.gd" id="1_up2j5"]
-[ext_resource type="PackedScene" uid="uid://cf4r658sbas1s" path="res://Assets/Models/Cars/Template.blend" id="2_q7cve"]
-[ext_resource type="Texture2D" uid="uid://bucilpfoen0m7" path="res://Assets/Textures/HUD/Under.svg" id="3_qcwen"]
-[ext_resource type="Texture2D" uid="uid://c48abvsj3ev63" path="res://Assets/Textures/HUD/Over.svg" id="4_uotfe"]
-[ext_resource type="Texture2D" uid="uid://80oedvubwhjs" path="res://Assets/Textures/HUD/Progress.svg" id="5_l3hap"]
+[ext_resource type="PackedScene" uid="uid://cf4r658sbas1s" path="res://Assets/Models/Cars/Default.blend" id="1_ohcvu"]
+[ext_resource type="Texture2D" uid="uid://bucilpfoen0m7" path="res://Assets/Textures/HUD/Under.svg" id="2_h7uh2"]
+[ext_resource type="Texture2D" uid="uid://c48abvsj3ev63" path="res://Assets/Textures/HUD/Over.svg" id="3_xly76"]
+[ext_resource type="Texture2D" uid="uid://80oedvubwhjs" path="res://Assets/Textures/HUD/Progress.svg" id="4_is78r"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6fftd"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8q1mn"]
 points = PackedVector3Array(1, 0.25, 2, 1, 0.75, 0.5, 1, 0.75, -2, -1, 0.25, 2, -1, 0.75, 0.5, 1, -0.75, 2, 1, -0.75, -2, -1, 0.75, -2, -1, -0.75, 2, -1, -0.75, -2)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uvfm0"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dhwmk"]
 points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_75k6t"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0picu"]
 points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra5or"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_q81nk"]
 points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0kvdb"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xeq3v"]
 points = PackedVector3Array(0.1, 0.5, 0.5, 0.1, 0.5, -0.5, -0.1, 0.5, 0.5, 0.1, -0.5, 0.5, 0.1, -0.5, -0.5, -0.1, 0.5, -0.5, -0.1, -0.5, 0.5, -0.1, -0.5, -0.5)
 
-[node name="Car" type="CharacterBody3D"]
-floor_block_on_wall = false
-floor_snap_length = 0.25
-script = ExtResource("1_up2j5")
+[node name="Default" type="CharacterBody3D"]
 
-[node name="Template" parent="." instance=ExtResource("2_q7cve")]
+[node name="Template" parent="." instance=ExtResource("1_ohcvu")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_6fftd")
+shape = SubResource("ConvexPolygonShape3D_8q1mn")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.5, -1)
-shape = SubResource("ConvexPolygonShape3D_uvfm0")
+shape = SubResource("ConvexPolygonShape3D_dhwmk")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, -1)
-shape = SubResource("ConvexPolygonShape3D_75k6t")
+shape = SubResource("ConvexPolygonShape3D_0picu")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.5, 1)
-shape = SubResource("ConvexPolygonShape3D_ra5or")
+shape = SubResource("ConvexPolygonShape3D_q81nk")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 1)
-shape = SubResource("ConvexPolygonShape3D_0kvdb")
+shape = SubResource("ConvexPolygonShape3D_xeq3v")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
 remote_path = NodePath("../CYaw")
@@ -87,9 +83,9 @@ grow_vertical = 0
 [node name="BoostBar" type="TextureProgressBar" parent="Hud/BoxContainer"]
 layout_mode = 2
 fill_mode = 4
-texture_under = ExtResource("3_qcwen")
-texture_over = ExtResource("4_uotfe")
-texture_progress = ExtResource("5_l3hap")
+texture_under = ExtResource("2_h7uh2")
+texture_over = ExtResource("3_xly76")
+texture_progress = ExtResource("4_is78r")
 tint_under = Color(0, 0, 0, 0.392157)
 tint_over = Color(0, 0, 0, 1)
 tint_progress = Color(0.968627, 0.882353, 0.388235, 1)

@@ -184,3 +184,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallShort2/WallShort3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8uk7a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.92388, -3.32732e-09, 0.382683, -0.382683, -1.67276e-08, 0.92388, 3.32733e-09, -1, -1.67276e-08, 0, 20, 0)

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cvh8nua8ghvyw"
-path="res://.godot/imported/Template.blend-65064a6886f1f1c9bd8ebf90a31c5255.scn"
+uid="uid://cf4r658sbas1s"
+path="res://.godot/imported/Default.blend-be2b18f57a2e429cc53efe205ca794ba.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Stadiums/Template.blend"
-dest_files=["res://.godot/imported/Template.blend-65064a6886f1f1c9bd8ebf90a31c5255.scn"]
+source_file="res://Assets/Models/Cars/Default.blend"
+dest_files=["res://.godot/imported/Default.blend-be2b18f57a2e429cc53efe205ca794ba.scn"]
 
 [params]
 
@@ -31,13 +31,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"nodes": {
-"PATH:Plane": {
-"generate/physics": true
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

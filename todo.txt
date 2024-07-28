@@ -1,12 +1,9 @@
 [TODO]
 	[Stadiums]
-		Implement stadium selector.
-		Implement standard map hitbox.
-		Implement Blender map workflow.
-		Redesign template map.
+		Redesign default map.
+		Implement boost refill
 
 	[Car]
-		Implement car selector.
 		Implement dash.
 		Implement wheel animation.
 		Implement boost effects.
@@ -14,6 +11,7 @@
 
 	[Menu]
 		Implement HUD.
+		Implement design.
 		Implement keyboard & controller navigation.
 
 	[Online]
@@ -24,7 +22,6 @@
 		Develop game match server.
 		Implement game match.
 
-[IN PROGRESS]
 
 [DONE]
 	[Config]
@@ -36,6 +33,13 @@
 		Implement control configs.
 		Implement right joystick camera pan.
 		Implement ball cam.
+
+	[Stadiums]
+		Implement stadium selector.
+		Implement Blender map workflow.
+
+	[Car]
+		Implement car selector.
 
 	[Menu]
 		Implement pause menu (Pause key).
