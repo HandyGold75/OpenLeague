@@ -95,7 +95,7 @@ func _process(delta: float) -> void:
 	if !cam_just_moved:
 		if ball_cam_state:
 			# Focus the ball
-			var ball := get_parent().get_parent().get_node("Balls").get_child(0)
+			var ball := get_parent().get_parent().get_node("Balls").get_child(0).get_child(0)
 			var yaw_old = $CYaw.rotation.y
 			var pitch_old = $CYaw/CPitch.rotation.x
 

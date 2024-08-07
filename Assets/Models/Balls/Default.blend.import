@@ -13,11 +13,10 @@ dest_files=["res://.godot/imported/Default.blend-c99ab0c3ec2cb5ef648eb4de24c5c2b
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
-nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -29,11 +28,21 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
-animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Ball": {
+"generate/physics": true,
+"physics/body_type": 1,
+"physics/layer": 2,
+"physics/physics_material_override": null,
+"physics/shape_type": 1
+}
+}
+}
+gltf/naming_version=0
+gltf/embedded_image_handling=1
 blender/nodes/visible=0
-blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
 blender/nodes/cameras=true
 blender/nodes/custom_properties=true

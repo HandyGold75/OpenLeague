@@ -13,11 +13,10 @@ dest_files=["res://.godot/imported/Default.blend-8b429d77ddbfe493a69db50e766bcd5
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
-nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -29,17 +28,19 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
-animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "nodes": {
 "PATH:Plane": {
-"generate/physics": true
+"generate/physics": true,
+"physics/physics_material_override": null,
+"physics/shape_type": 2
 }
 }
 }
+gltf/naming_version=1
+gltf/embedded_image_handling=1
 blender/nodes/visible=0
-blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
 blender/nodes/cameras=true
 blender/nodes/custom_properties=true
